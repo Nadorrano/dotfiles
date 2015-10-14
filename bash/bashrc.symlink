@@ -1,0 +1,34 @@
+#
+# ~/.bashrc
+#
+
+
+alias ls='ls --color=auto'
+
+# prompt style
+PS1='[\u@\h \W]\$ '  # To leave the default one
+
+# sudo aliases
+alias sudo='sudo '
+alias fuck='sudo $(fc -nl -1)'
+
+# bash non-repeating history
+export HISTCONTROL=ignoreboth:erasedups
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]
+then
+          source ~/.localrc
+  fi
+
+# Command-not-found for bash (Arch Linux)
+source /usr/share/doc/pkgfile/command-not-found.bash
+
+# Use gpu for rendering (if optirun is not working)
+function use_gpu { xrandr --setprovideroffloadsink nvidia Intel;  DRI_PRIME=1 $@; }
+
+
+PATH=$HOME/Gabedit64:$PATH
+

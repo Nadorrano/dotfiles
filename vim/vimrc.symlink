@@ -1,0 +1,60 @@
+" Some of the configuration of this file is based on the info
+" provided at http://dougblack.io/words/a-good-vimrc.html
+
+" Syntax {{{
+syntax on
+
+" Wrap gitcommit file types at the appropriate length
+filetype indent plugin on
+" }}}
+" Spaces and Tabs  {{{
+set tabstop=4
+set softtabstop=4
+set expandtab
+ " }}}
+" UI Config {{{
+" show line numbers
+set number
+" show command in bottom bar
+set showcmd
+" Vim loves to redraw the screen during things it probably doesn't need
+" to, like in the middle of macros. This tells Vim not to bother redrawing
+" during these scenarios, leading to faster macros.
+set lazyredraw
+" match brackets
+set showmatch
+" }}}
+" Coding Style {{{
+" hightlight column after 79 (Python PEP8)
+set colorcolumn=80
+" }}}
+" Searching {{{
+" search as characters are entered
+set incsearch
+" highlight matches
+set hlsearch
+" alias to turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+" }}}
+ " Folding {{{
+set foldenable
+" open most folds by default
+set foldlevelstart=10
+" 10 nested fold max
+set foldnestmax=10
+"space open/closes folds
+nnoremap <space> za
+" fold based on indent level
+set foldmethod=indent
+
+" }}}
+" Vim per file settings {{{
+set modelines=1
+" }}}
+" System {{{ 
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
