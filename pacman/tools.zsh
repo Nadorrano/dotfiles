@@ -11,8 +11,6 @@ pacgroup_dir=$HOME/.pacgroups
 # ---------------------------------------------------------
 
 
-
-
 # List all packages installed by date
 
 pacdate () {
@@ -110,5 +108,4 @@ pacgroup () {
   esac
 }
 
-export pacgroup
 
