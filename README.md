@@ -7,7 +7,7 @@ These are my dotfiles. I started to store them here to have a backup for me and 
 I forked this repo from Zach Holman one.
 
 If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read my post on the
+awesome, you might want to [read his post on the
 subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
 ## install
@@ -15,7 +15,7 @@ subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 Run this:
 
 ```sh
-git clone https://github.com/holman/dotfiles.git ~/.dotfiles
+git clone https://github.com/Nadorrano/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
@@ -41,7 +41,11 @@ symlinked without extension into `$HOME` when you run `script/bootstrap`.
 
 ## what's inside
 
-Inside there are some components inherited from [Zach Holman's github](https://github.com/holman/dotfiles) and some other original stuff. If you like something in this repo, [fork it](https://github.com/holman/dotfiles/fork), remove what you don't use, and build on what you do use.
+Inside there are some components inherited from 
+[Zach Holman's github](https://github.com/holman/dotfiles) and some other 
+original stuff. If you like something in this repo, 
+[fork it](https://github.com/Nadorrano/dotfiles/fork), 
+remove what you don't use, and build on what you do use.
 
 ## components
 
