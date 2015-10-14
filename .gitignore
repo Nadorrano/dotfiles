@@ -6,4 +6,5 @@ atom.symlink/packages
 atom.symlink/storage
 atom.symlink/themes
 *.swp
+*.swo
 git/gitconfig.symlink
