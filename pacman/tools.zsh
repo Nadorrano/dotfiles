@@ -27,7 +27,7 @@ pacdate () {
 pacgroup () {
   if [[ $EUID -eq 0 ]]; then
     echo "This script must not be run as root." 1>&2
-    exit 1
+    return 1
   fi
   usage="Usage: pacgroup [option|pacman args] [pacgroup name]"
   help="$usage
@@ -49,6 +49,10 @@ pacgroup () {
                                          system.
       --help                             Print this help. 
   "
+  if [[ $# -eq 0 ]] ; then
+    echo $usage
+    return 0
+  fi
   if [ ! -d $pacgroup_dir ]; then
     mkdir $pacgroup_dir
     echo "Directory $pacgroup_dir created."
