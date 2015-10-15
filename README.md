@@ -54,10 +54,20 @@ will be removed in a recent future I usually took a note of the
 temporary packages in some txt file. Every time I forgot where I put the
 note or I entirely forgot of the packages installed. Most package managers
 does not let you to save a group of packages so I wrote a little 
-script that allows you to do it. You can find **pacgroup** in the `\bin` folder.
+script that allows you to do it. You can find **pacgroup** in the `\bin` folder. 
+If you install the whole repo it's already available in your `$PATH`.
+This utility is thinked to be used with the Archlinux package manager **pacman** 
+but it's really easy to convert it to be used with other package managers.
 
-To create a new group simply write `pacgroup --create my group package1 package2 ...`. To delete the reference to the group created (installed packages will not be actually removed) the syntax is `pacgroup --delete mygroup`. 
+
+To create a new group simply write `pacgroup --create mygroup package1 package2 ...`.
+To delete the reference to the group created (installed packages will not be actually removed) the syntax is `pacgroup --delete mygroup`. 
 You can also `pacgroup --list` to see all groups saved and `pacgroup --list groupname to see the packages contained in the group.`
+
+To actually install/remove packages you can use the standard `pacman` command line arguments with `pacgroup` (*i.e.* `pacgroup -Sy mygroup`).
+The group name will be expanded and all arguments passed to `pacman`.
+
+Use this utility without `sudo`.
 
 ## components
 
