@@ -26,9 +26,3 @@ then
 # Command-not-found for bash (Arch Linux)
 source /usr/share/doc/pkgfile/command-not-found.bash
 
-# Use gpu for rendering (if optirun is not working)
-function use_gpu { xrandr --setprovideroffloadsink nvidia Intel;  DRI_PRIME=1 $@; }
-
-
-PATH=$HOME/Gabedit64:$PATH
-

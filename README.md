@@ -42,6 +42,23 @@ original stuff. If you like something in this repo,
 [fork it](https://github.com/Nadorrano/dotfiles/fork), 
 remove what you don't use, and build on what you do use.
 
+## description
+
+The biggest part of this repo isn't coded by me. I tried to credit the original author directly in the file, where possible.
+In this section I'll try to describe some of original contents of this script collection.
+
+### pacgroup
+
+If I knew that I was going to install a bunch of packages that I know 
+will be removed in a recent future I usually took a note of the 
+temporary packages in some txt file. Every time I forgot where I put the
+note or I entirely forgot of the packages installed. Most package managers
+does not let you to save a group of packages so I wrote a little 
+script that allows you to do it. You can find **pacgroup** in the `\bin` folder.
+
+To create a new group simply write `pacgroup --create my group package1 package2 ...`. To delete the reference to the group created (installed packages will not be actually removed) the syntax is `pacgroup --delete mygroup`. 
+You can also `pacgroup --list` to see all groups saved and `pacgroup --list groupname to see the packages contained in the group.`
+
 ## components
 
 There's a few special files in the hierarchy.
