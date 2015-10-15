@@ -2,11 +2,11 @@
 # ~/.bashrc
 #
 
-
-alias ls='ls --color=auto'
-
 # prompt style
 PS1='[\u@\h \W]\$ '  # To leave the default one
+
+# Command-not-found for bash (Arch Linux)
+source /usr/share/doc/pkgfile/command-not-found.bash
 
 # sudo aliases
 alias sudo='sudo '
@@ -22,7 +22,4 @@ if [[ -a ~/.localrc ]]
 then
           source ~/.localrc
   fi
-
-# Command-not-found for bash (Arch Linux)
-source /usr/share/doc/pkgfile/command-not-found.bash
 
