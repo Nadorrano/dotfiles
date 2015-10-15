@@ -26,15 +26,10 @@ Everything is configured and tweaked within `~/.dotfiles`.
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
 
-`dot` is a simple script that installs some dependencies, sets sane OS X
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
-
 ## topical
 
 Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
+forked dotfiles — say, "Java" — you can simply add a `java` directy and put
 files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run `script/bootstrap`.
@@ -66,7 +61,7 @@ There's a few special files in the hierarchy.
 
 ## disclaimer
 
-These are my personalized dotfiles and will not work on every system. To avoid problems copy the folder/file of interest and browse the source code deleting everything you don't understand. 
+These are my personalized dotfiles and will not work on every system. To avoid problems copy the folder/file of interest and browse the source code deleting everything you don't understand. This is a good practice. 
 
 ## thanks
 
