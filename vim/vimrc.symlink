@@ -51,7 +51,6 @@ set foldmethod=indent
 " Pathogen {{{
 " use pathogen
 call pathogen#infect()                      
-call pathogen#runtime_append_all_bundles()
 " }}}
 " Vim per file settings {{{
 set modelines=1
