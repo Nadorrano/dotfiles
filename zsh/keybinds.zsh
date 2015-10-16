@@ -2,6 +2,11 @@
 # key mapping for zsh
 #
 
+# correct home and end
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+
+
 # Back to previous folder: Alt + LeftArrow
 # Up to parent folder: Alt + UpArrow
 cdUndoKey() {
