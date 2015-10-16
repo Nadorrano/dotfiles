@@ -82,11 +82,35 @@ This utility is thinked to be used with the Archlinux package manager **pacman**
 but it's really easy to convert it to be used with other package managers.
 
 
-To create a new group simply write `pacgroup --create mygroup package1 package2 ...`.
-To delete the reference to the group created (installed packages will not be actually removed) the syntax is `pacgroup --delete mygroup`. 
-You can also `pacgroup --list` to see all groups saved and `pacgroup --list groupname to see the packages contained in the group.`
+To create a new group:
 
-To actually install/remove packages you can use the standard `pacman` command line arguments with `pacgroup` (*i.e.* `pacgroup -Sy mygroup`).
+```sh
+$ pacgroup --create mygroup package1 package2 ...
+```
+
+You can see the group you just created and the files contained in it with the `--list` option:
+```sh
+$ pacgroup --list
+
+mygroup
+
+$ pacgroup --list mygroup
+
+package1
+package2
+
+```
+
+To delete the reference to the group created (installed packages will not be actually removed) the `--delete` option is used. This will ask for a confirmation.
+
+```sh
+$ pacgroup --delete mygroup
+
+This will delete group 'mygroup'. Installed packages will not be removed.
+Are you sure? (y/n)
+``` 
+
+To actually install/remove packages you can use the standard `pacman` command line arguments with `pacgroup` (*i.e.* `pacgroup -Sy mygroup`, `pacman -Rs mygroup`).
 The group name will be expanded and all arguments passed to `pacman`.
 
 Use this utility without `sudo`.

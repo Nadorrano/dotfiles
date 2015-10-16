@@ -55,7 +55,7 @@ case $1 in
                   do
                     echo $(basename $f)
                   done   
-                  return 0;       
+                  exit 0;       
               fi
               if [ ! -f "$pacgroup_dir/$2" ]; then
                 echo "No groups found with name '$2'" 1>&2
@@ -65,22 +65,22 @@ case $1 in
       ;;
       '--create')
               if [ -f "$pacgroup_dir/$2" ]; then
-                echo "Group $2 already exists."
-                read -q "REPLY?Overwrite? (y/n)" -n 1 -r
+                echo "Group '$2' already exists."
+                read -p "Overwrite? (y/n)" -n 1 -r
                 if [[ ! $REPLY =~ ^[Yy]$ ]]
                 then
                   exit 0;
                 fi
               fi
-              echo "${@:3}\n" > "$pacgroup_dir/$2"
+              echo "${@:3}" > "$pacgroup_dir/$2"
       ;; 
       '--delete')
               if [ ! -f "$pacgroup_dir/$2" ]; then
-                echo "No groups found with name: $2" 1>&2
+                echo "No groups found with name '$2'" 1>&2
                 exit 1;
               fi
-              echo "This will delete group $2. Installed packages will not be removed."
-              read -q "REPLY?Are you sure? (y/n)" -n 1 -r
+              echo "This will delete group '$2'. Installed packages will not be removed."
+              read -p "Are you sure? (y/n)" -n 1 -r
               if [[ $REPLY =~ ^[Yy]$ ]]
               then
                 rm "$pacgroup_dir/$2"
