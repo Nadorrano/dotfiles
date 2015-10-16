@@ -15,7 +15,7 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 # bash non-repeating history
 export HISTCONTROL=ignoreboth:erasedups
 
-# all of our zsh files
+# all of our config files
 config_files=`find $DOTFILES -maxdepth 2 -type f \( -name "*.sh" -o -name "*.bash" \)`
 
  
