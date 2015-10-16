@@ -18,7 +18,7 @@ Run this:
 git clone https://github.com/Nadorrano/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
-git submodule init
+git submodule init --recursive
 git submodule update
 ```
 
