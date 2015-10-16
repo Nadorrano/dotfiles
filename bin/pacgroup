@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #
-# This script contains useful functions to use with the
+# This script contains useful functions to be used with the
 # Archlinux package manager "pacman".
 #
 

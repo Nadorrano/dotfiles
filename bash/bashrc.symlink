@@ -8,10 +8,6 @@ PS1='[\u@\h \W]\$ '  # To leave the default one
 # Command-not-found for bash (Arch Linux)
 source /usr/share/doc/pkgfile/command-not-found.bash
 
-# sudo aliases
-alias sudo='sudo '
-alias fuck='sudo $(fc -nl -1)'
-
 # bash non-repeating history
 export HISTCONTROL=ignoreboth:erasedups
 
@@ -20,6 +16,21 @@ export HISTCONTROL=ignoreboth:erasedups
 # you'll have access to them in your scripts.
 if [[ -a ~/.localrc ]]
 then
-          source ~/.localrc
-  fi
+  source ~/.localrc
+fi
 
+# all of our zsh files
+typeset -U config_files
+config_files=($ZSH/**/*.zsh)
+ 
+load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done

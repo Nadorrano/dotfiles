@@ -18,6 +18,8 @@ Run this:
 git clone https://github.com/Nadorrano/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
+git submodule init
+git submodule update
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.

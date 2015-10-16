@@ -1,2 +1,2 @@
-# vi/vim alias
+# The famous vi/vim alias
 alias vi=vim

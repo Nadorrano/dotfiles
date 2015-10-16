@@ -2,13 +2,8 @@
 # ~/.bash_profile
 #
 
+# source bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
+# Start X server via startx
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-
-# 256 colors terminal
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM='xterm-256color'
-else
-        export TERM='xterm-color'
-fi
