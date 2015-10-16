@@ -30,6 +30,15 @@ set laststatus=2
 " hightlight column after 79 (Python PEP8)
 set colorcolumn=80
 " }}}
+" Key Remapping {{{
+" map nerdtree plugin to F2
+map <F2> :NERDTreeToggle<CR>
+" Navigation between split with alt+arrows
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+" }}}
 " Searching {{{
 " search as characters are entered
 set incsearch
@@ -96,4 +105,5 @@ augroup configgroup
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 " }}}
+
 " vim:foldmethod=marker:foldlevel=0

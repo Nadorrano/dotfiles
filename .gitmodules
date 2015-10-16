@@ -10,3 +10,6 @@
 [submodule "vim.symlink/bundle/jedi-vim"]
 	path = vim.symlink/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
+[submodule "vim.symlink/bundle/nerdtree"]
+	path = vim.symlink/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
