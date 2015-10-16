@@ -38,8 +38,8 @@ do
   source $file
 done
 
-# Command not found Hook for zsh
-# (need package pkgfile)
+# Command not found hook for zsh
+# (need package 'pkgfile')
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 unset config_files

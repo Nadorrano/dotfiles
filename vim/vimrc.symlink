@@ -26,10 +26,6 @@ set showmatch
 " set status bar always visible
 set laststatus=2
 " }}}
-" Coding Style {{{
-" hightlight column after 79 (Python PEP8)
-set colorcolumn=80
-" }}}
 " Key Remapping {{{
 " map nerdtree plugin to F2
 map <F2> :NERDTreeToggle<CR>
@@ -88,6 +84,9 @@ augroup configgroup
   autocmd FileType python setlocal tabstop=4
   autocmd FileType python setlocal softtabstop=4
   autocmd FileType python setlocal expandtab
+  autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+  autocmd FileType python match Excess /\%80v.*/
+  autocmd FileType python set nowrap
   autocmd FileType perl setlocal commentstring=#\ %s
   autocmd FileType perl setlocal tabstop=8
   autocmd FileType perl setlocal softtabstop=8
