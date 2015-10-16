@@ -4,7 +4,7 @@
 
 These are my dotfiles. I started to store them here to have a backup for me and maybe to offer a source of inspiration for others.
 
-I forked this repo from Zach Holman one.
+I forked this repo from [Zach Holman one](https://github.com/holman/dotfiles).
 
 If you're interested in the philosophy behind why projects like these are
 awesome, you might want to [read his post on the
