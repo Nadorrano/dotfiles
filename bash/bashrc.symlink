@@ -1,6 +1,10 @@
+#!/usr/bin/env bash
 #
 # ~/.bashrc
 #
+
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES=$HOME/.dotfiles
 
 # prompt style
 PS1='[\u@\h \W]\$ '  # To leave the default one
@@ -11,6 +15,26 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 # bash non-repeating history
 export HISTCONTROL=ignoreboth:erasedups
 
+# all of our zsh files
+config_files=`find $DOTFILES -maxdepth 2 -type f \( -name "*.sh" -o -name "*.bash" \)`
+
+ 
+# load the path files
+for file in $config_files
+do
+  if [[ $( basename $file ) =~ path\.(ba)*sh$ ]]; then
+    source $file
+  fi
+done
+
+# load everything but the path files
+for file in $config_files
+do
+ if [[ ! $( basename $file ) =~ path\.(ba)*sh$ ]]; then
+   source $file
+ fi
+done
+
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
@@ -19,18 +43,4 @@ then
   source ~/.localrc
 fi
 
-# all of our zsh files
-typeset -U config_files
-config_files=($ZSH/**/*.zsh)
- 
-load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
 
-load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-  source $file
-done

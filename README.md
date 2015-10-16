@@ -77,16 +77,20 @@ There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
+- **topic/\*.{zsh, bash, tcsh}**: Any files ending in `.zsh`, `.bash`, `.tcsh` get loaded into your environment by the corresponding rc file
+- **topic/path.{zsh, bash, tcsh}**: Any file named `path.{zsh, bash, tcsh}` is loaded first and is expected to setup `$PATH` or similar.
+- **topic/\*.sh** is loaded by both zsh and bash shells.
 - **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
+  last and is expected to setup autocomplete for zsh.
 - **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `script/bootstrap`.
+
+In summary `.sh` files are loaded both by zhs and bash, `.zsh` files are loaded by zsh and `bash` files are loaded by bash; `.tcsh` files are loaded by tcsh exclusively.
+
+The C console tcsh loads `~/.localtcshrc` while bash and zsh load `~/.localrc`, for your private configurations.
+
 
 ## disclaimer
 

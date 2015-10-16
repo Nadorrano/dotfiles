@@ -1,0 +1,32 @@
+#!/usr/bin/env tcsh
+
+# shortcut to this dotfiles path is $DOTFILES
+setenv DOTFILES "$HOME/.dotfiles"
+
+
+# all of our config files
+set config_files=$DOTFILES/**/*.tcsh
+
+# load the path files
+foreach f ( $config_files)
+  if ( `basename $f` == 'path.tcsh') then
+        source $f
+  endif
+end
+
+
+# load everything but the path files
+foreach f ( $config_files)
+  if ( `basename $f` != 'path.tcsh') then
+        source $f
+  endif
+end
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if ( -f ~/.localtcshrc ) then
+    source ~/.localtcshrc
+endif
+
+
