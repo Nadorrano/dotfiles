@@ -43,3 +43,4 @@ done
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 unset config_files
+
