@@ -1,5 +1,5 @@
 #
-# Store here all aliases that not depend on the shell used or 
+# Store here all aliases that not depend on the shell used and 
 # does not belong to any topic folder.
 #
 
@@ -13,6 +13,9 @@ alias fuck='sudo $(fc -nl -1)'
 
 # colored grep
 alias grep='grep --color'
+
+# Launche default editor
+alias e='$EDITOR'
 
 # Bumblebee
 # Use gpu for rendering (if optirun is not working) for nvidia hardware

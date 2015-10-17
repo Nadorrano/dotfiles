@@ -1,3 +1,4 @@
+
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '
 else
@@ -6,10 +7,6 @@ fi
 
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
-
-fpath=($DOTFILES/functions $fpath)
-
-autoload -U $DOTFILES/functions/*(:t)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

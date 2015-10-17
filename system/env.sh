@@ -1,6 +1,6 @@
 #
 # This file store system-wide configurations, basically everything
-# you would put in .bashrc or .zshrc but independent from# the console
+# you would put in .bashrc or .zshrc but independent from the console
 # you use.
 #
 
@@ -13,4 +13,8 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
 else
  export TERM='xterm-color'
 fi
+
+# Add binaries of these dotfiles distribution to $PATH.
+# Note that ~/local/bin is not added here but in ~/.localrc
+export PATH="$DOTFILES/bin:$PATH"
 

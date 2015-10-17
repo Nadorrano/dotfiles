@@ -64,6 +64,8 @@ In summary `.sh` files are loaded both by zsh and bash, `.zsh` files are loaded 
 
 The C console tcsh loads `~/.localtcshrc` while bash and zsh load `~/.localrc`, for your private configurations.
 
+It's imperative to write portable code in all `.sh` scripts.
+
 ## description
 
 The biggest part of this repo isn't coded by me. I tried to credit the original author directly in the file, where possible.
