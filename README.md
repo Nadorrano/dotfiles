@@ -2,7 +2,7 @@
 
 ## dotfiles
 
-These are my dotfiles. I started to store them here to have a backup for me and maybe to offer a source of inspiration for others.
+These are my dotfiles. I started to store them here to have a backup for me and maybe to offer a source of inspiration for others. These dotfiles are meant to be compatible with various linux systems with little modifications.
 
 I forked this repo from [Zach Holman one](https://github.com/holman/dotfiles).
 
@@ -10,9 +10,15 @@ If you're interested in the philosophy behind why projects like these are
 awesome, you might want to [read his post on the
 subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
+In brief, to "use" this, you have to fork/copy/download/steal these dotfiles and personalize them for your system(s).
+
 ## install
 
-Run this:
+Before installing you need to be sure that the new dotfiles will not broke your system configuration. In particular you need to pay attention to 
+`system/xinitrc.symlink`, `bash/bash_profile.symlink`, `zsh/zlogin.symlink`
+ which contains directives specific to the desktop environment that I use (xfce). The safest choice is to delete those file before running `script/bootstrap` (see next).
+
+To install these .dotfiles run this:
 
 ```sh
 git clone https://github.com/Nadorrano/dotfiles.git ~/.dotfiles

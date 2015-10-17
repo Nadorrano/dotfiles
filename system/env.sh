@@ -1,6 +1,6 @@
 #
 # This file store system-wide configurations, basically everything
-# you would put in .bashrc or .zshrc but independent from the console
+# you would put in .bash_profile or .zprofile but independent from the shell
 # you use.
 #
 
@@ -16,5 +16,6 @@ fi
 
 # Add binaries of these dotfiles distribution to $PATH.
 # Note that ~/local/bin is not added here but in ~/.localrc
+# if this is needed.
 export PATH="$DOTFILES/bin:$PATH"
 
