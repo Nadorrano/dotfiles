@@ -50,9 +50,10 @@ There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
-- **topic/\*.{zsh, bash, tcsh}**: Any files ending in `.zsh`, `.bash`, `.tcsh` get loaded into your environment by the corresponding rc file
-- **topic/path.{zsh, bash, tcsh}**: Any file named `path.{zsh, bash, tcsh}` is loaded first and is expected to setup `$PATH` or similar.
-- **topic/\*.sh** is loaded by both zsh and bash shells.
+- **topic/\*.{sh, zsh, bash, tcsh}**: Any files ending in `.zsh`, `.bash`,
+ `.tcsh` get loaded into your environment by the corresponding rc file
+ of the shell you use. `.sh` files are loaded both by bash and zsh.
+- **topic/path.{sh, zsh, bash, tcsh}**: Any file named `path.{sh, zsh, bash, tcsh}` is loaded first and is expected to setup `$PATH` or similar.
 - **topic/completion.zsh**: Any file named `completion.zsh` is loaded
   last and is expected to setup autocomplete for zsh.
 - **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
