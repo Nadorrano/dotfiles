@@ -5,9 +5,6 @@
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
-
 # all of our config files
 typeset -U config_files
 config_files=($DOTFILES/**/*.(sh|zsh))

@@ -6,6 +6,16 @@
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+ 
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoredups
+ 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
 # prompt style
 PS1='[\u@\h \W]\$ '  # To leave the default one
 
@@ -43,4 +53,9 @@ then
   source ~/.localrc
 fi
 
+# bash autocompletion
+for file in /usr/local/etc/bash_completion.d/*
+do
+  source $file
+done
 
