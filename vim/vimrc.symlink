@@ -13,6 +13,8 @@ set softtabstop=4
 set expandtab
  " }}}
 " UI Config {{{
+" set encoding
+set encoding=utf-8
 " show line numbers
 set number
 " show command in bottom bar
