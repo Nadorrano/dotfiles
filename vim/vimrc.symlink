@@ -13,6 +13,8 @@ set softtabstop=4
 set expandtab
  " }}}
 " UI Config {{{
+" mouse support
+set mouse=a
 " set encoding
 set encoding=utf-8
 " show line numbers
