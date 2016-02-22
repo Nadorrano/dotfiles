@@ -13,3 +13,6 @@
 [submodule "vim.symlink/bundle/nerdtree"]
 	path = vim.symlink/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree
+[submodule "vim.symlink/bundle/vim-hybrid"]
+	path = vim.symlink/bundle/vim-hybrid
+	url = https://github.com/w0ng/vim-hybrid
