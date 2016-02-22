@@ -1,6 +1,10 @@
 " Some of the configuration of this file is based on the info
 " provided at http://dougblack.io/words/a-good-vimrc.html
 
+" Pathogen {{{
+" use pathogen
+call pathogen#infect()                      
+" }}}
 " Syntax {{{
 syntax on
 
@@ -61,10 +65,6 @@ nnoremap <space> za
 " fold based on indent level
 set foldmethod=indent
 
-" }}}
-" Pathogen {{{
-" use pathogen
-call pathogen#infect()                      
 " }}}
 " Vim per file settings {{{
 " allows per file settings
