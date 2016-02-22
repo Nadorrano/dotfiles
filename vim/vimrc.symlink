@@ -13,6 +13,9 @@ set softtabstop=4
 set expandtab
  " }}}
 " UI Config {{{
+" set color scheme
+set background=dark
+colorscheme hybrid
 " mouse support
 set mouse=a
 " set encoding
