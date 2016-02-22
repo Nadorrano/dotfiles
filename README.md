@@ -23,9 +23,9 @@ To install these .dotfiles run this:
 ```sh
 git clone https://github.com/Nadorrano/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-script/bootstrap
-git submodule init --recursive
+git submodule init
 git submodule update
+script/bootstrap
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
