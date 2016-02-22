@@ -14,7 +14,7 @@ In brief, to *use* this, you have to fork/copy/download/steal these dotfiles and
 
 ## install
 
-Before installing you need to be sure that the new dotfiles will not broke your system configuration. In particular you need to pay attention to 
+Before installing you need to be sure that the new dotfiles will not broke your system configuration. In particular you need to pay attention to
 `system/xinitrc.symlink`, `bash/bash_profile.symlink`, `zsh/zlogin.symlink`
  which contains directives specific to the desktop environment that I use (xfce). The safest choice is to delete those file before running `script/bootstrap` (see next).
 
@@ -44,10 +44,10 @@ symlinked without extension into `$HOME` when you run `script/bootstrap`.
 
 ## what's inside
 
-Inside there are some components inherited from 
-[Zach Holman's github](https://github.com/holman/dotfiles) and some other 
-original stuff. If you like something in this repo, 
-[fork it](https://github.com/Nadorrano/dotfiles/fork), 
+Inside there are some components inherited from
+[Zach Holman's github](https://github.com/holman/dotfiles) and some other
+original stuff. If you like something in this repo,
+[fork it](https://github.com/Nadorrano/dotfiles/fork),
 remove what you don't use, and build on what you do use.
 
 ## components
@@ -80,14 +80,14 @@ In this section I'll try to describe some of original contents of this script co
 
 #### pacgroup
 
-If I knew that I was going to install a bunch of packages that I know 
-will be removed in a recent future I usually took a note of the 
+If I knew that I was going to install a bunch of packages that I know
+will be removed in a recent future I usually took a note of the
 temporary packages in some txt file. Every time I forgot where I put the
 note or I entirely forgot of the packages installed. Most package managers
-does not let you to save a group of packages so I wrote a little 
-script that allows you to do it. You can find **pacgroup** in the `\bin` folder. 
+does not let you to save a group of packages so I wrote a little
+script that allows you to do it. You can find **pacgroup** in the `\bin` folder.
 If you install the whole repo it's already available in your `$PATH`.
-This utility is thinked to be used with the Archlinux package manager **pacman** 
+This utility is thinked to be used with the Archlinux package manager **pacman**
 but it's really easy to convert it to be used with other package managers.
 
 
@@ -117,19 +117,19 @@ $ pacgroup --delete mygroup
 
 This will delete group 'mygroup'. Installed packages will not be removed.
 Are you sure? (y/n)
-``` 
+```
 
-To actually install/remove packages you can use the standard `pacman` command line arguments with `pacgroup` (*i.e.* `pacgroup -Sy mygroup`, `pacman -Rs mygroup`).
+To actually install/remove packages you can use the standard `pacman` command line arguments with `pacgroup` (*i.e.* `pacgroup -Sy mygroup`, `pacgroup -Rs mygroup`).
 The group name will be expanded and all arguments passed to `pacman`.
 
 Use this utility without `sudo`.
 
 ## disclaimer
 
-These are my personalized dotfiles and will not work on every system. To avoid problems copy the folder/file of interest and browse the source code deleting everything you don't understand. This is a good practice. 
+These are my personalized dotfiles and will not work on every system. To avoid problems copy the folder/file of interest and browse the source code deleting everything you don't understand. This is a good practice.
 
 ## thanks
 
 I forked [Zach Holman's dotfiles](https://github.com/holman/dotfiles) and modified for my needings so all credits go to him.
 
- 
+
