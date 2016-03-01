@@ -73,7 +73,7 @@ set modelines=1
 augroup configgroup
   autocmd!
   autocmd VimEnter * highlight clear SignColumn
-  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h
                           \ :call <SID>StripTrailingWhitespaces()
   autocmd FileType java setlocal noexpandtab
   autocmd FileType java setlocal list
