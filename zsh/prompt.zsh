@@ -1,9 +1,9 @@
 # Let's have some colors first
 autoload -U colors && colors
 
-if [[ -e /usr/share/zsh/site-contrib/powerline.zsh ]]; then
+if [[ -e /usr/bin/powerline ]]; then
   # Powerline support is enabled if available, otherwise use a regular PS1
-  . /usr/share/zsh/site-contrib/powerline.zsh
+  . /usr/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
   VIRTUAL_ENV_DISABLE_PROMPT=true
 else
   # Default colors:
@@ -27,5 +27,4 @@ else
     RPROMPT="$RPROMPT ⇄" # ssh icon
   fi
 fi
-
 
