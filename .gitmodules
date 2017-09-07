@@ -1,9 +1,6 @@
 [submodule "vim.symlink/bundle/AutoClose"]
 	path = vim.symlink/bundle/AutoClose
 	url = https://github.com/vim-scripts/AutoClose
-[submodule "vim.symlink/bundle/vim-airline"]
-	path = vim.symlink/bundle/vim-airline
-	url = https://github.com/bling/vim-airline
 [submodule "vim.symlink/bundle/vim-flake8"]
 	path = vim.symlink/bundle/vim-flake8
 	url = https://github.com/nvie/vim-flake8
