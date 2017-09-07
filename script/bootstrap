@@ -125,6 +125,25 @@ link_file () {
   fi
 }
 
+
+system_setup () {
+  if -e [ system/xinitrc.symlink ]
+  then 
+    rm system/xinitrc.symlink
+  fi
+  user "Select your desktop environment to create X startup files:\
+0) Do not create files 1) Budgie 2) Xfce4"
+  read -n 1 system
+  case $system in
+    0 )
+        :;;
+    1 )
+        cp system/budgie-xinitrc system/xinitrc.symlink;;
+    2 )
+        cp system/xfce4-xinitrc system/xinitrc.symlink;;
+  esac
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
@@ -137,6 +156,7 @@ install_dotfiles () {
   done
 }
 
+system_setup
 setup_gitconfig
 install_dotfiles
 
