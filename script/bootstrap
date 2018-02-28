@@ -127,7 +127,7 @@ link_file () {
 
 
 system_setup () {
-  if -e [ system/xinitrc.symlink ]
+  if [ -e system/xinitrc.symlink ]
   then 
     rm system/xinitrc.symlink
   fi

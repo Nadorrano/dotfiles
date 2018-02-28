@@ -49,6 +49,11 @@ fi
 bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word
 
+# History search, backwards and forwards, based upon what
+# has already been entered at the prompt
+bindkey "$key[Up]" history-beginning-search-backward
+bindkey "$key[Down]" history-beginning-search-forward
+
 # Back to previous folder: Alt + LeftArrow
 # Up to parent folder: Alt + UpArrow
 
