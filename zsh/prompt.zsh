@@ -3,7 +3,7 @@ autoload -U colors && colors
 
 if [[ -e /usr/bin/powerline ]]; then
   # Powerline support is enabled if available, otherwise use a regular PS1
-  . /usr/lib/python3.8/site-packages/powerline/bindings/zsh/powerline.zsh
+  . `python -c "import powerline;import inspect;import os;print(os.path.dirname(inspect.getfile(powerline)))"`/bindings/zsh/powerline.zsh 
   VIRTUAL_ENV_DISABLE_PROMPT=true
 else
   # Default colors:
