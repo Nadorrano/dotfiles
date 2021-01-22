@@ -1,0 +1,20 @@
+// Appearance
+URxvt.scrollBar:       false
+
+// Clickable links
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher:    /usr/bin/xdg-open
+URxvt.matcher.button:  1
+
+// Fonts
+URxvt.font: xft:FantasqueSansMono Nerd Font:size=10:antialias=true
+URxvt.boldFont: xft:FantasqueSansMono Nerd Font:style=Bold:size=10:antialias=true
+
+// Colors
+urxvt*background:      rgba:0000/0000/0000/cccc
+urxvt*foreground:      White
+URxvt.transparent:     true
+URxvt.shading:         20 
+
+#include "/home/fonta/.cache/wal/colors.Xresources"
+
