@@ -29,11 +29,6 @@ export HISTCONTROL=ignoreboth:erasedups
 
 bind "set completion-ignore-case on" # Ignore case in completion
 
-for file in /usr/share/bash-completion/completions/*
-do
-  source $file
-done
-
 #
 # Alias
 #

@@ -1,22 +1,24 @@
 " Some of the configuration of this file is based on the info
 " provided at http://dougblack.io/words/a-good-vimrc.html
 
-" Pathogen {{{
+" Setup {{{
+" This must be first, because it changes other options as a side effect.
+set nocompatible
 " use pathogen
 call pathogen#infect()                      
 " }}}
-" Syntax {{{
+" Syntax {{{  
 syntax on
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
 " }}}
-" Spaces and Tabs  {{{
+" Spaces and Tabs   {{{
 set tabstop=4
 set softtabstop=4
 set expandtab
  " }}}
-" UI Config {{{
+" UI Config {{{  
 " set color scheme
 set background=dark
 colorscheme hybrid
@@ -37,9 +39,14 @@ set showmatch
 " set status bar always visible
 set laststatus=2
 " }}}
+" NERDTree {{{
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeShowHidden=1
+" map nerdtree plugin to Ctrl+n
+map <C-n> :NERDTreeToggle<CR>
+" }}}
 " Key Remapping {{{
-" map nerdtree plugin to F2
-map <F2> :NERDTreeToggle<CR>
 " Navigation between split with alt+arrows
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
@@ -104,6 +111,7 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal tabstop=2
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
  augroup END
 " }}}
 " System {{{ 
