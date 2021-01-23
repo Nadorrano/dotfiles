@@ -4,3 +4,9 @@
 [submodule "vim/.vim/pack/plugins/start/nerdtree"]
 	path = vim/.vim/pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree
+[submodule "vim/.vim/pack/plugins/opt/vim-flake8"]
+	path = vim/.vim/pack/plugins/opt/vim-flake8
+	url = https://github.com/nvie/vim-flake8
+[submodule "vim/.vim/pack/plugins/opt/jedi-vim"]
+	path = vim/.vim/pack/plugins/opt/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
