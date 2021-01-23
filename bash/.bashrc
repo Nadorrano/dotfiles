@@ -32,5 +32,7 @@ bind "set completion-ignore-case on" # Ignore case in completion
 #
 # Alias
 #
+alias reload!="source $HOME/.bash_profile"
+
 source $DOTFILES/system/aliases.sh
 

@@ -2,8 +2,8 @@
 # key mapping for zsh
 #
 
-# emacs-like keybindings
-bindkey -e
+# vim-like keybindings
+bindkey -v
 
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -53,6 +53,16 @@ fi
 # Move between words with Ctrl-Left and Ctrl-Right
 bindkey "^[Od" backward-word
 bindkey "^[Oc" forward-word
+
+
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+zle -N edit-command-line
+# Emacs style
+#bindkey '^xe' edit-command-line
+#bindkey '^x^e' edit-command-line
+# Vi style:
+bindkey -M vicmd ' ' edit-command-line
 
 
 # Back to previous folder: Alt + LeftArrow

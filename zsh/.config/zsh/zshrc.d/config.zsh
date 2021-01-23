@@ -18,6 +18,10 @@ powerline-daemon -q
 # Command not found hook for zsh (need package 'pkgfile')
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
+# Load custom functions
+autoload -Uz extract
+
+
 #
 # History
 #
@@ -43,11 +47,10 @@ setopt IGNORE_EOF
 
 
 #
-# Aliases and functions
+# Aliases 
 #
 
-alias reload!='. ~/.zshrc'
+alias reload!='source $ZDOTDIR/.zshrc'
 
 source $DOTFILES/system/aliases.sh
-source $DOTFILES/system/functions.sh
 
