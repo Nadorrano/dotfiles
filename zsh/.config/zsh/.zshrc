@@ -2,7 +2,7 @@
 # ~/.zshrc
 #
 
-source $ZDOTDIR/config.zsh
-source $ZDOTDIR/keybindings.zsh
-source $ZDOTDIR/completion.zsh
+for config_file in $ZDOTDIR/zshrc.d/*.zsh; do
+  source $config_file
+done
 
