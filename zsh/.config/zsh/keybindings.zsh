@@ -23,8 +23,6 @@ key[Left]="$terminfo[kcub1]"
 key[Right]="$terminfo[kcuf1]"
 key[PageUp]="$terminfo[kpp]"
 key[PageDown]="$terminfo[knp]"
-key[Ctrl-L]="$terminfo[kLFT5]"
-key[Ctrl-R]="$terminfo[kRIT5]"
 
 # setup key accordingly
 [[ -n "$key[Home]"      ]] && bindkey -- "$key[Home]"      beginning-of-line
@@ -36,8 +34,7 @@ key[Ctrl-R]="$terminfo[kRIT5]"
 [[ -n "$key[Down]"      ]] && bindkey -- "$key[Down]"      down-line-or-beginning-search
 [[ -n "$key[Left]"      ]] && bindkey -- "$key[Left]"      backward-char
 [[ -n "$key[Right]"     ]] && bindkey -- "$key[Right]"     forward-char
-[[ -n "$key[Ctrl-L]"    ]] && bindkey -- "$key[Ctrl-L]"    backward-word
-[[ -n "$key[Ctrl-R]"    ]] && bindkey -- "$key[Ctrl-R]"    forward-word
+
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
@@ -53,10 +50,15 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 
+# Move between words with Ctrl-Left and Ctrl-Right
+bindkey "^[Od" backward-word
+bindkey "^[Oc" forward-word
+
+
 # Back to previous folder: Alt + LeftArrow
 # Up to parent folder: Alt + UpArrow
 
-setopt autopushd pushdsilent pushdtohome
+setopt AUTOPUSHD PUSHDSILENT PUSHDTOHOME
 
 cdUndoKey() {
   popd      > /dev/null
@@ -76,6 +78,6 @@ cdParentKey() {
 
 zle -N                 cdParentKey
 zle -N                 cdUndoKey
-bindkey '^[[1;3A'      cdParentKey
-bindkey '^[[1;3D'      cdUndoKey
+bindkey '^[^[[A'       cdParentKey
+bindkey '^[^[[D'       cdUndoKey
 
