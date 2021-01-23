@@ -5,10 +5,10 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 " use pathogen
-call pathogen#infect()                      
+""call pathogen#infect()                      
 " }}}
 " Syntax {{{  
-syntax on
+syntax enable
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
@@ -21,7 +21,8 @@ set expandtab
 " UI Config {{{  
 " set color scheme
 set background=dark
-colorscheme hybrid
+packadd! gruvbox 
+colorscheme gruvbox
 " mouse support
 set mouse=a
 " set encoding
