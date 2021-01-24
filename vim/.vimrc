@@ -2,14 +2,10 @@
 " provided at http://dougblack.io/words/a-good-vimrc.html
 
 " Setup {{{
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-" use pathogen
-""call pathogen#infect()                      
+set nocompatible        " This must be first
 " }}}
 " Syntax {{{  
-syntax enable
-
+syntax enable           " Highlight syntax
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
 " }}}
@@ -19,33 +15,29 @@ set softtabstop=4
 set expandtab
  " }}}
 " UI Config {{{  
-" set color scheme
-set background=dark
-packadd! gruvbox 
-colorscheme gruvbox
-" mouse support
-set mouse=a
-" set encoding
-set encoding=utf-8
-" show line numbers
-set number
-" show command in bottom bar
-set showcmd
+set background=dark     " dark mode
+colorscheme gruvbox     " set color scheme
+set mouse=a             " mouse support
+set encoding=utf-8      " set encoding
+set number              " show line numbers
+set showcmd             " show command in bottom bar
+set showmatch           " match brackets
 " Vim loves to redraw the screen during things it probably doesn't need
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
 set lazyredraw
-" match brackets
-set showmatch
-" set status bar always visible
-set laststatus=2
 " }}}
-" NERDTree {{{
+" Plugins {{{
+" NERDTree
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
 let NERDTreeShowHidden=1
 " map nerdtree plugin to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
+" Powerline
+set laststatus=2        " Always display the statusline
+set showtabline=2       " Always display the tabline
+set noshowmode          " Hide the default mode text
 " }}}
 " Key Remapping {{{
 " Navigation between split with alt+arrows
@@ -55,24 +47,18 @@ nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 " }}}
 " Searching {{{
-" search as characters are entered
-set incsearch
-" highlight matches
-set hlsearch
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
 " alias to turn off search highlight
 nnoremap <A-Space> :nohlsearch<CR>
 " }}}
  " Folding {{{
-set foldenable
-" open most folds by default
-set foldlevelstart=10
-" 10 nested fold max
-set foldnestmax=10
-"space open/closes folds
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+set foldmethod=indent   " fold based on indent level
+" space open/closes folds
 nnoremap <space> za
-" fold based on indent level
-set foldmethod=indent
-
 " }}}
 " Vim per file settings {{{
 " allows per file settings
@@ -121,7 +107,7 @@ augroup configgroup
 cmap w!! w !sudo tee %
 " }}}
 " Custom Functions {{{
-" strips trailing whitespace at the end of files. this
+" Strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
     " save last search & cursor position
