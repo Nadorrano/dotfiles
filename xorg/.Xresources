@@ -1,3 +1,12 @@
+
+#include "/home/fonta/.cache/wal/colors.Xresources"
+
+// ===========================  //
+//                              //
+//            URxvt             //
+//                              //
+// ===========================  //
+
 // Appearance
 URxvt.scrollBar:       false
 
@@ -7,14 +16,24 @@ URxvt.url-launcher:    /usr/bin/xdg-open
 URxvt.matcher.button:  1
 
 // Fonts
-URxvt.font: xft:FantasqueSansMono Nerd Font:size=10:antialias=true
-URxvt.boldFont: xft:FantasqueSansMono Nerd Font:style=Bold:size=10:antialias=true
+URxvt.font:            xft:FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
+URxvt.boldFont:        xft:FantasqueSansMono Nerd Font:style=Bold:pixelsize=14:antialias=true
 
 // Colors
 urxvt*background:      rgba:0000/0000/0000/cccc
 urxvt*foreground:      White
+
+// Transparency
 URxvt.transparent:     true
 URxvt.shading:         20 
 
-#include "/home/fonta/.cache/wal/colors.Xresources"
+
+// ===========================  //
+//                              //
+//              st              //
+//                              //
+// ===========================  //
+
+st.font: FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
+st.alpha: 0.4
 
