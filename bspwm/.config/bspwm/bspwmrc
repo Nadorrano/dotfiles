@@ -57,10 +57,13 @@ dunst -lf  "$color0" \
 
 
 # Launch Lemonbar
-pgrep -x lemobar > /dev/null && killall lemonbar
+pgrep -x lemonbar > /dev/null && killall lemonbar
 ~/.config/lemonbar/powerwalbar.sh
 
 # Launch conky
 pgrep -x conky > /dev/null && killall conky
 conky --daemon
+
+# Launch picom compositor
+picom &
 
