@@ -2,7 +2,7 @@
 # Autocompletion
 #
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d $HOME/.cache/zsh/zcompdump
 
 # Autocompletion of privileged environments
 zstyle ':completion::complete:*' gain-privileges 1
