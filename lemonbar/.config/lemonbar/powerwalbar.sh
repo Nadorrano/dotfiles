@@ -13,11 +13,25 @@ pkill lemonbar
 
 . "${HOME}/.cache/wal/colors.sh"
 
-bg="%{B$color4}%{F$color0}"
-active="%{B$color4}%{F$color7}"
+#1="FontAwesome 5 Free:style=Solid:size=9"
+#f1="Material Icons:size=10"
+#f2="NotoSansDisplay Nerd Font:size=10"
+#f2="NotoSansMono Nerd Font:size=10"
+#f2="NotoSerif Nerd Font:size=10"
+#f2="RobotoMono Nerd Font:size=11"
+#f2="xos4 Terminess Powerline:size=12"
+#f2="mplus Nerd Font:size=10"
+#f2="OverpassMono Nerd Font:size=10"
+#f2="LiterationSerif Nerd Font:size=11"
+f1="iMWritingDuospace Nerd Font:size=10"
+#f2="Arimo Nerd Font:size=11"
+#f2="LiterationSans Nerd Font:size=11"
+#f2="Ubuntu Nerd Font:size=11"
+#f2="iMWritingMonos Nerd Font:size=10"
 
-f2="FontAwesome 5 Free:style=Solid:size=9"
-f1="xos4 Terminess Powerline"
+SHOW_VOLUME_PERCENTAGE=true
+SHOW_BATTERY_PERCENTAGE=true
+SHOW_SSID=true
 
 righthard=""
 rightsoft=""
@@ -33,24 +47,18 @@ get_ws(){
     desk=$(xdotool get_desktop)
     wsname=(" 1 " " 2 " " 3 " " 4 ")
     for i in {0..3}; do
-        echo -n "$bg%{A:xdotool set_desktop $i:}"
+        current=${wsname[$((i))]}
+        echo -n "%{B$color4}%{F$color0}%{A:xdotool set_desktop $i:}"
         if [[ "$((desk))" == "$i" ]]; then
-            echo -n "$active"
-        else
-            echo -n ""
+            echo -n "%{B$color4}%{F$color7}"
         fi
-        if [[ "$((desk))" == "$i" ]]; then
-            echo -n "${wsname[$((i))]}" | tr '[:lower:]' '[:upper:]'
-        else
-            echo -n "${wsname[$((i))]}" | tr '[:lower:]' '[:upper:]'
-        fi
-        echo -n "%{A}%{B-}%{F-}"
+        echo -n "$current%{A}%{B-}%{F-}"
     done
 }
 
 get_window(){
 	id=$(echo -n "$(xdotool getwindowfocus getwindowname)"  | awk -v len=50 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }')
-  echo -n "%{A:rofi -show window:} $id %{A}"
+  echo -n "%{A:rofi -show window:}  $id %{A}"
 }
 
 get_song() {
@@ -59,16 +67,15 @@ get_song() {
 }
 
 network() {
-    show_ssid=true
     network_id=$(/sbin/iwgetid -r)
     if [ -n "$network_id" ] ; then
-        string=" \uf6ff "
-        if [ "$show_ssid" = true ] ; then
-            string+="${network_id} "
+        string=" 直 "
+        if [ "$SHOW_SSID" = true ] ; then
+            string+="${network_id}"
         fi
     else
-        string="  "
-        if [ "$show_ssid" = true ] ; then
+        string="   " 
+        if [ "$SHOW_SSID" = true ] ; then
             string+="offline "
         fi
     fi
@@ -76,59 +83,68 @@ network() {
 }
 
 volume(){
-    show_percentage=true
     volume=$(awk -F"[][]" '/Mono:/ { print $2 }' <(amixer sget Master) | tr -d "[%]")
     mute=$(amixer sget Master | grep "\[off\]")
-    if [ -n "$mute" ]
-    then
-        string="\uf6a9 "
-    else
-        string="\uf028 "
+	  if [[ -n $mute ]]; then
+      string=" ﱝ  "
+    elif [[ $volume -ge 66 ]] ; then
+		  string=" 墳 "
+		elif [[ $volume -ge 33 ]] ; then
+			string=" 奔 "
+		else
+			string=" 奄"
+		fi
+    if [ "$SHOW_VOLUME_PERCENTAGE" = true ] ; then
+        string+="$volume%"
     fi
-    gray=$((127 - (volume * 127 / 100 )))
-    color_var=$(printf '#%02x%02x%02x' $gray $gray $gray)
-    if [ "$show_percentage" = true ] ; then
-        string+="%{F$color0}$volume% "
-    fi
-    echo -e "%{F$color_var}%{A1:amixer sset Master toggle:}%{A4:amixer -q sset Master 3%+ unmute:}%{A5:amixer -q sset Master 3%- unmute:} $string %{A}%{A}%{A}%{F-}"
+    echo -e "%{A1:amixer sset Master toggle:}%{A4:amixer -q sset Master 3%+ unmute:}%{A5:amixer -q sset Master 3%- unmute:} $string %{A}%{A}%{A}"
 }
 
 
 power_icon(){
-    echo -e -n " %{A:sh ~/.config/lemonbar/dmenu_logout.sh &:} \uf011 %{A}" 
+    echo -e -n "%{A:sh ~/.config/lemonbar/dmenu_logout.sh &:} 襤 %{A}" # f924 
 }
 
 battery() {
-    show_percentage=true
     battery_status=$(cat /sys/class/power_supply/BAT0/status)
     battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
     
     case "$battery_status" in
         Charging)
-            echo -e -n " \uf1e6 "
-            if [ "$show_percentage" = true ] ; then
+	          if [ $battery_percent -le "10" ] ; then
+	      	  	echo -e -n "   " # f585
+	      	  elif [ $battery_percent -le "25" ] ; then
+	      	  	echo -e -n "   " # f586
+	      	  elif [ $battery_percent -le "50" ] ; then
+	      	  	echo -e -n "   " # f587
+	      	  elif [ $battery_percent -le "75" ] ; then
+	      	  	echo -e -n "   " # f589
+	      	  elif [ $battery_percent -le "100" ] ; then
+	      	  	echo -e -n "   " # f584
+	      	  fi
+            if [ "$SHOW_BATTERY_PERCENTAGE" = true ] ; then
                 echo "$battery_percent%"
             fi
             ;;
         Discharging)
 	          if [ $battery_percent -le "10" ] ; then
-	      	  	echo -e -n " \uf244 "
+	      	  	echo -e -n "  " # f579
 	      	  elif [ $battery_percent -le "25" ] ; then
-	      	  	echo -e -n " \uf243 "
+	      	  	echo -e -n "  " # f57b
 	      	  elif [ $battery_percent -le "50" ] ; then
-	      	  	echo -e -n " \uf242 "
+	      	  	echo -e -n "  " # f57d
 	      	  elif [ $battery_percent -le "75" ] ; then
-	      	  	echo -e -n " \uf241 "
+	      	  	echo -e -n "  " # f57f 
 	      	  elif [ $battery_percent -le "100" ] ; then
-	      	  	echo -e -n " \uf240 "
+	      	  	echo -e -n "  " # f578
 	      	  fi
-            if [ "$show_percentage" = true ] ; then
+            if [ "$SHOW_BATTERY_PERCENTAGE" = true ] ; then
                 echo "$battery_percent%"
             fi
             ;;
         Unknown|Full)
-            echo -e -n " \uf1e6 "
-            if [ "$show_percentage" = true ] ; then
+            echo -e -n "  "
+            if [ "$SHOW_BATTERY_PERCENTAGE" = true ] ; then
                 echo "Carica"
             fi
             ;;
@@ -137,11 +153,11 @@ battery() {
 
 
 calendar() {
-    echo -e " \uf133 $(date +'%A %d %B %Y') "
+    echo -e "   $(date +'%A %d %B %Y') " # f5ed
 }
 
 clock() {
-    echo -e " \uf017 $(date +'%H:%M') "
+    echo -e "   $(date +'%H:%M') " # f64f
 }
 
 while true; do
@@ -150,7 +166,7 @@ while true; do
     $(get_ws)%{F$color4}%{B$color0}$righthard
     %{B$color0}%{F$color7}$(get_window)
     %{r}%{F$color4}$lefthard%{RF$color0}$(network)
-    %{F$color2}$lefthard%{R}$(volume)
+    %{F$color2}$lefthard%{RF$color0}$(volume)
     %{F$color4}$lefthard%{RF$color0}$(battery)
     %{F$color2}$lefthard%{RF$color0}$(calendar) 
     %{F$color4}$lefthard%{RF$color0}$(clock)
