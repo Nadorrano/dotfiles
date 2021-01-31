@@ -27,13 +27,3 @@ urxvt*foreground:      White
 URxvt.transparent:     true
 URxvt.shading:         20 
 
-
-// ===========================  //
-//                              //
-//              st              //
-//                              //
-// ===========================  //
-
-st.font: FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
-st.alpha: 0.4
-

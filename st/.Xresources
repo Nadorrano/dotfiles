@@ -1,0 +1,13 @@
+
+#include "/home/fonta/.cache/wal/colors.Xresources"
+
+
+// ===========================  //
+//                              //
+//              st              //
+//                              //
+// ===========================  //
+
+st.font: FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
+st.background: #cccccc
+
