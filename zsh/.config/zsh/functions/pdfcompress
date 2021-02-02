@@ -1,0 +1,14 @@
+
+function pdfcompress {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: pdfcompress <path/file_name>.pdf [<path/file_name_1>.pdf] ..."
+    echo "Output:  <path/file_name>.compressed.pdf [<path/file_name_1>.compressed.pdf] ..."
+ else
+    for n in "$@"
+    do
+        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile=$(echo "$n" | cut -f 1 -d '.').compressed.pdf "$n"
+    done
+fi
+}
+

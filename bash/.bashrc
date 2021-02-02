@@ -34,5 +34,24 @@ bind "set completion-ignore-case on" # Ignore case in completion
 #
 alias reload!="source $HOME/.bash_profile"
 
-source $DOTFILES/system/aliases.sh
+# ls aliases
+alias ls='ls --color=auto' 
+alias la='ls -A' 
+alias ll='ls -GlFhA'
+
+# execute last command again, using sudo
+alias fuck='sudo $(fc -nl -1)'
+
+# colorized grep
+alias grep='grep --color'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Launche default editor
+alias e='$EDITOR'
+
+# Directory navigation aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 

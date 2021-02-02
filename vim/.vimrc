@@ -29,8 +29,8 @@ set lazyredraw
 " }}}
 " Plugins {{{
 " NERDTree
-let g:NERDTreeDirArrowExpandable = '►'
-let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeDirArrowExpandable = '► '
+let g:NERDTreeDirArrowCollapsible = '▼ '
 let NERDTreeShowHidden=1
 " map nerdtree plugin to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
@@ -45,6 +45,10 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+" Use CTRL-S for saving, also in Insert mode
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
 " }}}
 " Searching {{{
 set incsearch           " search as characters are entered
@@ -102,11 +106,18 @@ augroup configgroup
  augroup END
 " }}}
 " System {{{ 
-
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee %
-" }}}
-" Custom Functions {{{
+" Capture command output in new buffer
+command! -nargs=1 Capture new | r ! <args>
+command! -nargs=1 C Capture <args>
+" Correct common mistakes
+command! W w
+command! Q q
+command! WQ wq
+command! Wq wq
+" }}} 
+" Custom  Functions {{{
 " Strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()

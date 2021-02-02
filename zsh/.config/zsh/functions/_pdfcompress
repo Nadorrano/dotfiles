@@ -1,0 +1,4 @@
+#compdef pdfcompress
+
+_path_files '-g *.pdf'
+

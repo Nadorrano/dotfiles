@@ -10,10 +10,6 @@ zstyle ':completion::complete:*' gain-privileges 1
 # Matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# pacman 
-zstyle ':completion:*:pacman:*' force-list always
-zstyle ':completion:*:*:pacman:*' menu yes select
-
 # Pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
@@ -32,4 +28,7 @@ bindkey "^I" expand-or-complete-with-dots
 setopt COMPLETE_ALIASES
 # Complete from the inside of a word
 setopt COMPLETE_IN_WORD
+
+# FZF completion, trigger them using '**'
+source /usr/share/fzf/completion.zsh
 
