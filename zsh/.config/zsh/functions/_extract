@@ -1,0 +1,4 @@
+#compdef extract
+
+_path_files '-g *.(zip|rar|bz2|gz|tar|tbz2|tgz|txz|Z|7z|xz|exe|tar.bz2|tar.gz|tar.xz|deb|rpm|dmg|pkg|epub|cbt|cbz|cpio|cba|ace|cab|cb7|msi|chm|iso)'
+

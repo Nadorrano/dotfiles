@@ -1,0 +1,3 @@
+# vim
+alias vi='vim'
+

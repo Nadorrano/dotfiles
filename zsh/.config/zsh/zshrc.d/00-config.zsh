@@ -4,12 +4,14 @@
 
 export EDITOR="vim"
 
+autoload -Uz add-zsh-hook
 
 # Set terminal window title
 DISABLE_AUTO_TITLE="true"
-autoload -Uz add-zsh-hook
-_set_title () { print -Pn "\e]2;%n@%M  %~\a" }
-add-zsh-hook -Uz precmd _set_title 
+add-zsh-hook -Uz precmd _set_title () { print -Pn "\e]2;%n@%M  %~\a" }
+
+# Auto ls
+add-zsh-hook -Uz chpwd (){ ls -a; }
 
 # Enable powerline
 powerline-daemon -q
@@ -18,15 +20,20 @@ powerline-daemon -q
 # Command not found hook for zsh (need package 'pkgfile')
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
+# Add the function folder to fpath
+fpath=( $ZDOTDIR/functions "${fpath[@]}" )
+
 # Load custom functions
+autoload -Uz use_gpu
 autoload -Uz extract
+autoload -Uz pdfcompress
 
 
 #
 # History
 #
 
-HISTFILE=$ZDOTDIR/.zsh_history
+HISTFILE=~/.cache/zsh/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -38,6 +45,11 @@ setopt HIST_VERIFY
 setopt HIST_IGNORE_ALL_DUPS
 # remove extra blank for history entries
 setopt HIST_REDUCE_BLANKS
+
+#
+# Misc options
+#
+
 # No annoying sounds 
 setopt NO_BEEP
 # Command correction
@@ -52,5 +64,24 @@ setopt IGNORE_EOF
 
 alias reload!='source $ZDOTDIR/.zshrc'
 
-source $DOTFILES/system/aliases.sh
+# ls aliases
+alias ls='ls --color=auto' 
+alias la='ls -A' 
+alias ll='ls -GlFhA'
+
+# execute last command again, using sudo
+alias fuck='sudo $(fc -nl -1)'
+
+# colorized grep
+alias grep='grep --color'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Launche default editor
+alias e='$EDITOR'
+
+# Directory navigation aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 

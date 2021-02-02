@@ -7,5 +7,9 @@ atom.symlink/storage
 atom.symlink/themes
 *.swp
 *.swo
-git/gitconfig.symlink
-system/xinitrc.symlink
+
+# Python
+__pycache__/
+*.py[cod]
+
+ranger/.config/ranger/plugins/__init__.py

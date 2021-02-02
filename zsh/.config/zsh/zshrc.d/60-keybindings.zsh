@@ -91,3 +91,6 @@ zle -N                 cdUndoKey
 bindkey '^[^[[A'       cdParentKey
 bindkey '^[^[[D'       cdUndoKey
 
+# FZF keybindings
+source /usr/share/fzf/key-bindings.zsh
+

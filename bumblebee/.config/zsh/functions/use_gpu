@@ -1,0 +1,5 @@
+# Bumblebee
+# Use gpu for rendering (if optirun is not working) for nvidia hardware
+# from user flecha https://bbs.archlinux.org/viewtopic.php?id=184571 
+function use_gpu { xrandr --setprovideroffloadsink nvidia Intel;  DRI_PRIME=1 $@; }
+
