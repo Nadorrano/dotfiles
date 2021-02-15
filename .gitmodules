@@ -19,3 +19,6 @@
 [submodule "vim/.vim/pack/themes/start/vim-hybrid"]
 	path = vim/.vim/pack/themes/start/vim-hybrid
 	url = https://github.com/w0ng/vim-hybrid
+[submodule "vim/.vim/pack/themes/start/gruvbox"]
+	path = vim/.vim/pack/themes/start/gruvbox
+	url = https://github.com/morhetz/gruvbox
