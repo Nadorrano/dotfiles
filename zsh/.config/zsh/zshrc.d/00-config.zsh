@@ -2,16 +2,21 @@
 # General configurations 
 #
 
-export EDITOR="vim"
-
 autoload -Uz add-zsh-hook
 
 # Set terminal window title
-DISABLE_AUTO_TITLE="true"
-add-zsh-hook -Uz precmd _set_title () { print -Pn "\e]2;%n@%M  %~\a" }
+function xterm_title_precmd () {
+    print -Pn -- '\e]2;%n@%M  %~\a'
+    [[ "$TERM" == 'screen'* ]] && print -Pn -- '\e]2;%n@%M  %~\a\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-}\e\\'
+}
+
+if [[ "$TERM" == (alacritty*|gnome*|konsole*|putty*|rxvt*|screen*|st*|tmux*|xterm*) ]]; then
+    add-zsh-hook -Uz precmd xterm_title_precmd
+fi
+
 
 # Auto ls
-add-zsh-hook -Uz chpwd (){ ls -a; }
+add-zsh-hook -Uz chpwd (){ exa; }
 
 # Enable powerline
 powerline-daemon -q
@@ -24,10 +29,7 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 fpath=( $ZDOTDIR/functions "${fpath[@]}" )
 
 # Load custom functions
-autoload -Uz use_gpu
-autoload -Uz extract
-autoload -Uz pdfcompress
-
+autoload -U $ZDOTDIR/functions/*(@,.:t)
 
 #
 # History
@@ -64,10 +66,13 @@ setopt IGNORE_EOF
 
 alias reload!='source $ZDOTDIR/.zshrc'
 
-# ls aliases
+# exa aliases
 alias ls='ls --color=auto' 
 alias la='ls -A' 
-alias ll='ls -GlFhA'
+alias ll='ls -GlAh'
+# List only directories
+alias lsd='ls -DFl'
+
 
 # execute last command again, using sudo
 alias fuck='sudo $(fc -nl -1)'
@@ -77,7 +82,7 @@ alias grep='grep --color'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# Launche default editor
+# Launch default editor
 alias e='$EDITOR'
 
 # Directory navigation aliases

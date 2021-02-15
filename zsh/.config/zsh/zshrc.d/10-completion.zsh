@@ -2,6 +2,9 @@
 # Autocompletion
 #
 
+# Add the completion folder to fpath
+fpath=( $ZDOTDIR/completions "${fpath[@]}" )
+
 autoload -Uz compinit && compinit -d $HOME/.cache/zsh/zcompdump
 
 # Autocompletion of privileged environments

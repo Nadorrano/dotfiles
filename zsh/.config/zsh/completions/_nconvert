@@ -1,0 +1,17 @@
+#compdef nconvert
+
+_describe 'command' "(              \
+    'hd:Hexadecimal to decimal'     \
+    'ho:Hexadecimal to octal'       \
+    'hb:Hexadecimal to binary'      \
+    'dh:Decimal to hexadecimal'     \
+    'do:Decimal to octal'           \
+    'db:Decimal to binary'          \
+    'oh:Octal to hexadecimal'       \
+    'od:Octal to decimal'           \
+    'ob:Octal to binary'            \
+    'bh:Binary to hexadecimal'      \
+    'bd:Binary to decimal'          \
+    'bo:Binary to octal'            \
+)"
+

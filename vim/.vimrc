@@ -22,6 +22,8 @@ set encoding=utf-8      " set encoding
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set showmatch           " match brackets
+set splitright          " open new files on the right split
+set splitbelow          " open new files on the bottom split
 " Vim loves to redraw the screen during things it probably doesn't need
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
@@ -40,6 +42,8 @@ set showtabline=2       " Always display the tabline
 set noshowmode          " Hide the default mode text
 " }}}
 " Key Remapping {{{
+" Fix scrolling bug with st terminal
+map <ScrollWheelUp> <C-Y>
 " Navigation between split with alt+arrows
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
@@ -49,6 +53,19 @@ nmap <silent> <A-Right> :wincmd l<CR>
 noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
+" Mistakes!
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee %
 " }}}
 " Searching {{{
 set incsearch           " search as characters are entered
@@ -69,65 +86,73 @@ nnoremap <space> za
 set modelines=1
 " autogroups
 augroup configgroup
-  autocmd!
-  autocmd VimEnter * highlight clear SignColumn
-  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h
-                          \ :call <SID>StripTrailingWhitespaces()
-  autocmd FileType java setlocal noexpandtab
-  autocmd FileType java setlocal list
-  autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType php setlocal expandtab
-  autocmd FileType php setlocal list
-  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType ruby setlocal tabstop=2
-  autocmd FileType ruby setlocal shiftwidth=2
-  autocmd FileType ruby setlocal softtabstop=2
-  autocmd FileType ruby setlocal commentstring=#\ %s
-  autocmd FileType python setlocal commentstring=#\ %s
-  autocmd FileType python setlocal tabstop=4
-  autocmd FileType python setlocal softtabstop=4
-  autocmd FileType python setlocal expandtab
-  autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
-  autocmd FileType python match Excess /\%80v.*/
-  autocmd FileType python set nowrap
-  autocmd FileType perl setlocal commentstring=#\ %s
-  autocmd FileType perl setlocal tabstop=8
-  autocmd FileType perl setlocal softtabstop=8
-  autocmd FileType perl setlocal expandtab
-  autocmd BufEnter *.cls setlocal filetype=java
-  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-  autocmd BufEnter Makefile setlocal noexpandtab
-  autocmd BufEnter *.sh setlocal tabstop=2
-  autocmd BufEnter *.sh setlocal shiftwidth=2
-  autocmd BufEnter *.sh setlocal softtabstop=2
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
- augroup END
+   autocmd!
+   autocmd VimEnter * highlight clear SignColumn
+   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h
+                           \ :call <SID>StripTrailingWhitespaces()
+   autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
+   autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
+   autocmd FileType java setlocal noexpandtab list listchars=tab:+\ ,eol:-
+   autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+   autocmd FileType php setlocal expandtab list listchars=tab:+\ ,eol:-
+   autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+   autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+   autocmd FileType ruby setlocal commentstring=#\ %s
+   autocmd FileType python setlocal commentstring=#\ %s tabstop=4 softtabstop=4 expandtab
+   autocmd FileType python setlocal commentstring=#\ %s 
+   autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+   autocmd FileType python match Excess /\%80v.*/
+   autocmd FileType python set nowrap
+   autocmd FileType perl setlocal tabstop=8 softtabstop=8 expandtab commentstring=#\ %s
+   autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
+   autocmd Filetype sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+   autocmd Filetype zsh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+   autocmd BufEnter *.cls setlocal filetype=java
+   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+   autocmd BufEnter Makefile setlocal noexpandtab
+   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+augroup END
 " }}}
-" System {{{ 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee %
+" Custom Functions {{{
 " Capture command output in new buffer
 command! -nargs=1 Capture new | r ! <args>
 command! -nargs=1 C Capture <args>
-" Correct common mistakes
-command! W w
-command! Q q
-command! WQ wq
-command! Wq wq
-" }}} 
-" Custom  Functions {{{
+" Convert binary file to hexdump
+function ToBinary()
+        %!xxd
+        set ft=xxd
+endfunction
+function ToAscii()
+        %!xxd -r
+        set ft=
+endfunction
+command! Binary call ToBinary()
+command! Ascii call ToAscii()
+" Menu selection of some characters
+function Pars()
+        set cmdheight=2
+        echohl Title | echom 'Scelte:' | echohl None
+        echo '1. ()    2. &'
+        let choice = getchar()
+        if choice == 49 
+                normal i()
+        elseif choice == 50 
+                normal i&
+        endif
+        set cmdheight=1
+        echo
+endfunction
+imap <C-B> <C-O>:call Pars()<CR>
 " Strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
+        " save last search & cursor position
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        %s/\s\+$//e
+        let @/=_s
+        call cursor(l, c)
 endfunction
 " }}}
 

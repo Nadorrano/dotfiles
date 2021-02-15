@@ -1,0 +1,7 @@
+# List zsh functions
+
+function listfunc()
+{
+    print -l ${(ok)functions[(I)_*]}
+}
+
