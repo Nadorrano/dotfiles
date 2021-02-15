@@ -8,7 +8,7 @@ Spegni
 
 . ~/.cache/wal/colors.sh
 
-CHOICE=$(echo -n "$LABELS" | dmenu -nb $color0 -nf $color1 -sb $color2 -sf $color7)
+CHOICE=$(echo -n "$LABELS" | dmenu -h 18 -nb $color0 -nf $color1 -sb $color2 -sf $color7)
 case $CHOICE in
 Logout) exec logout;;
 Riavvia) exec reboot;;

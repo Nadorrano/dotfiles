@@ -1,0 +1,7 @@
+# Create a directory like "year-month-day" (i. e. <prefix>2007-07-16)
+
+function mkdate()
+{
+	mkdir $1$(date +%F)
+}
+

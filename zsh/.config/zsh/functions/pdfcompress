@@ -1,3 +1,4 @@
+# Compress a PDF file
 
 function pdfcompress {
  if [ -z "$1" ]; then

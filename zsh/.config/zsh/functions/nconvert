@@ -1,0 +1,41 @@
+# Convert numbers between different bases 
+
+function nconvert() 
+{
+    if (( ${#@} < 2 )) ; then
+        printf 'Usage: nconvert CONVERSION_CODE NUMBER\n'
+        printf '    eg.: nconvert dh 42\n'
+        printf '      returns '\''0x2A'\'' - decimal 42 converted to hex.\n'
+        printf ' available conversion chars: d, h, o and b\n'
+        return 2
+    fi
+
+    setopt localoptions noksharrays
+    local from=${1[1]} to=${1[2]}
+    local -i from_c to_c num=$2
+
+    case ${from} in
+        (h) (( from_c = 16 )) ;;
+        (d) (( from_c = 10 )) ;;
+        (o) (( from_c =  8 )) ;;
+        (b) (( from_c =  2 )) ;;
+        (*)
+            printf 'Unknown from code: (%s)\n' ${from}
+            return 1
+            ;;
+    esac
+    case ${to} in
+        (h) (( to_c = 16 )) ;;
+        (d) (( to_c = 10 )) ;;
+        (o) (( to_c =  8 )) ;;
+        (b) (( to_c =  2 )) ;;
+        (*)
+            printf 'Unknown to code: (%s)\n' ${to}
+            return 1
+            ;;
+    esac
+
+    echo $(( [#${to_c}] ${from_c}#${num} ))
+    return 0
+}
+
