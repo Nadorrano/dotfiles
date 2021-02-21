@@ -24,6 +24,10 @@ set showcmd             " show command in bottom bar
 set showmatch           " match brackets
 set splitright          " open new files on the right split
 set splitbelow          " open new files on the bottom split
+" enable truecolors in st
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 " Vim loves to redraw the screen during things it probably doesn't need
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
