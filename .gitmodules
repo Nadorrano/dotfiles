@@ -22,3 +22,12 @@
 [submodule "vim/.vim/pack/themes/start/gruvbox"]
 	path = vim/.vim/pack/themes/start/gruvbox
 	url = https://github.com/morhetz/gruvbox
+[submodule "zsh/.config/zsh/themes/powerlevel10k"]
+	path = zsh/.config/zsh/plugins/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh/.config/zsh/plugins/zsh-autosuggestions"]
+	path = zsh/.config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git

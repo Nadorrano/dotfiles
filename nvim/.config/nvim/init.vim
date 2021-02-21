@@ -1,1 +1,1 @@
-/home/fonta/.vimrc
+../../../vim/.vimrc

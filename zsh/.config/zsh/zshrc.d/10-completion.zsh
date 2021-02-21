@@ -5,7 +5,7 @@
 # Add the completion folder to fpath
 fpath=( $ZDOTDIR/completions "${fpath[@]}" )
 
-autoload -Uz compinit && compinit -d $HOME/.cache/zsh/zcompdump
+autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.config}/zsh/zcompdump"
 
 # Autocompletion of privileged environments
 zstyle ':completion::complete:*' gain-privileges 1
@@ -31,7 +31,4 @@ bindkey "^I" expand-or-complete-with-dots
 setopt COMPLETE_ALIASES
 # Complete from the inside of a word
 setopt COMPLETE_IN_WORD
-
-# FZF completion, trigger them using '**'
-source /usr/share/fzf/completion.zsh
 
