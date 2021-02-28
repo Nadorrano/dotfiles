@@ -1,0 +1,3 @@
+// Load colors from wal cache
+#include "/home/fonta/.cache/wal/colors.Xresources"
+

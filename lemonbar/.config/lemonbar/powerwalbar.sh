@@ -15,26 +15,31 @@ pkill lemonbar
 
 . ~/.config/lemonbar/widgets.sh
 
-#1="FontAwesome 5 Free:style=Solid:size=9"
+#f1="FontAwesome 5 Free:style=Solid:size=9"
 #f1="Material Icons:size=10"
 #f2="NotoSansDisplay Nerd Font:size=10"
 #f2="NotoSansMono Nerd Font:size=10"
 #f2="NotoSerif Nerd Font:size=10"
 #f2="RobotoMono Nerd Font:size=11"
-#f2="xos4 Terminess Powerline:size=12"
-#f2="mplus Nerd Font:size=10"
-#f2="OverpassMono Nerd Font:size=10"
+f1="monofur for Powerline:size=11"
+f2="FantasqueSansMono Nerd Font:size=10"
+#f1="OverpassMono Nerd Font:size=10"
+#f1="Tinos for Powerline:size=11"
 #f2="LiterationSerif Nerd Font:size=11"
-f1="iMWritingDuospace Nerd Font:size=10"
+#f1="iMWritingDuospace Nerd Font:size=10"
 #f2="Arimo Nerd Font:size=11"
 #f2="LiterationSans Nerd Font:size=11"
 #f2="Ubuntu Nerd Font:size=11"
 #f2="iMWritingMonos Nerd Font:size=10"
 
-righthard=""
-rightsoft=""
-lefthard=""
-leftsoft=""
+# righthard=""
+# rightsoft=""
+# lefthard=""
+# leftsoft=""
+righthard=""
+rightsoft=""
+lefthard=""
+leftsoft=""
 
 
 while true; do

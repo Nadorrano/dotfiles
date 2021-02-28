@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source $HOME/.cache/wal/colors.sh
+
+declare -A apps
+
+for path in {/usr/share/applications,$HOME/.local/share/applications}/*.desktop
+do
+  key=$(awk '/^Name=/{sub(/^Name=/, ""); print}' "$path")
+  value=$(awk '/^Exec=/{sub(/^Exec=/, ""); print}' "$path")
+  apps[$key]=$value
+done
+
+CHOICE=$(IFS=$'\n'; echo "${!apps[*]}" | dmenu -l 20 -c -bw 5 -nb $color0 -nf $color1 -sb $color2 -sf $color7)
+
+exec "${apps[$CHOICE]}"
+
+unset apps
+

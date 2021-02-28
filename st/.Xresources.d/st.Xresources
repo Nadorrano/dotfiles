@@ -1,14 +1,13 @@
-
-#include "/home/fonta/.cache/wal/colors.Xresources"
-
-
 // ===========================  //
 //                              //
 //              st              //
 //                              //
 // ===========================  //
 
+// Colors
+urxvt*foreground:      #ffffff
+
 st.font: FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
 st.background: #cccccc
-// st.foreground: #ff0000
+st.foreground: #ff0000
 // st.cursorColor: #10171f
