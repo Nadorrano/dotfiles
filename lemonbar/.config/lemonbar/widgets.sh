@@ -20,7 +20,7 @@ menu() {
 
 get_ws() {
     desk=$(xdotool get_desktop)
-    wsname=(" 1 " " 2 " " 3 " " 4 " "  " "  " "  ")
+    wsname=("  " "  " "  " "  " "ﱘ ")
     for i in "${!wsname[@]}"; do 
         echo -n "%{B$color4}%{F$color0}%{A:xdotool set_desktop $i:}"
         if [[ "$((desk))" == "$i" ]]; then

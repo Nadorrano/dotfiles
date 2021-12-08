@@ -29,8 +29,8 @@ bspc config active_border_color     "$color13"
 bspc config normal_border_color     "$color0"
 
 
-bspc rule -a Gimp desktop='^6' state=floating follow=on
-bspc rule -a firefox desktop='^5'
+bspc rule -a Gimp desktop='^4' state=floating follow=on
+bspc rule -a firefox desktop='^2'
 bspc rule -a Pcmanfm desktop='^6'
 
 
