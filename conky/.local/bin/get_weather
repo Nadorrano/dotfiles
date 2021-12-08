@@ -1,0 +1,43 @@
+#!/bin/bash
+set -eu
+
+# It seems that in conky the execi command will start before curl has completely
+# written the file. For some reason adding a sleep before calling curl fixes it.
+sleep 2
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/conky/weather"
+weather_file="$cache_dir/weather.json"
+
+[[ ! -d "$cache_dir" ]] && mkdir -p "$cache_dir" 
+
+# OpenWeatherMap configuration stored in an untracked file
+source ~/.localrc
+
+# Prepare request
+api_prefix="api.openweathermap.org/data/2.5/onecall?"
+appid="appid=$OWM_APPID"
+lat="&lat=$OWM_LAT"
+lon="&lon=$OWM_LON"
+units="&units=$OWM_UNITS"
+lang="&lang=$OWM_LANG"
+exclude="&exclude=minutely,hourly"
+
+# Request
+curl -s "${api_prefix}${appid}${lat}${lon}${units}${lang}${exclude}"        \
+     -o "$weather_file"
+
+# Copy forecast icons
+cp -f "$cache_dir/icons/$(jq '.daily[0].weather[0].id' $weather_file).png"  \
+      "$cache_dir/weather-1.png"
+cp -f "$cache_dir/icons/$(jq '.daily[1].weather[0].id' $weather_file).png"  \
+      "$cache_dir/weather-2.png"
+cp -f "$cache_dir/icons/$(jq '.daily[2].weather[0].id' $weather_file).png"  \
+      "$cache_dir/weather-3.png"
+
+# Send notification about local weather alarms
+IFS=$'\n'
+for alert in $(jq -r '.alerts[]? | .event' "$weather_file")
+do
+  notify-send "$alert"
+done
+
