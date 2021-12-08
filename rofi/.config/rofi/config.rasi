@@ -1,7 +1,8 @@
 configuration {
- modi: "window,drun,ssh,combi";
- theme: "solarized";
- font: "FantasqueSansMono Nerd Font 12";
- combi-modi: "window,drun,ssh";
- }
+  modi: "window,drun,ssh,combi";
+  font: "FantasqueSansMono Nerd Font 12";
+  combi-modi: "window,drun,ssh";
+}
+
+ @theme "solarized"
 

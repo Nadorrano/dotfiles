@@ -1,0 +1,5 @@
+
+function wine {
+  echo | su -c "wine $[$@]" wineuser
+}
+

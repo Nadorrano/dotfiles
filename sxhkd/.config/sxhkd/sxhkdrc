@@ -8,12 +8,20 @@ super + Return
 
 # program launcher
 super + @space
-    rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/ribbon_top.rasi
+    rofi -me-select-entry '' -me-accept-entry "MousePrimary" -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/ribbon_top.rasi
 	# dmenu_run
 
 # open/close a side gap to show conky
 super + c
     p=140 && _(){ bspc config right_padding "$@" } && [[ $(_) -eq $p ]] && _ 0 || _ $p
+
+# open a custom dmenu launcher
+super + d
+    dmenu_launcher
+
+# start browser
+super + b
+    firefox
 
 # make sxhkd reload its configuration files:
 super + Escape

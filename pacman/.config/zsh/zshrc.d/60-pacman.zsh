@@ -7,7 +7,8 @@
 #
 # Alias
 #
-alias pacorphan='pacman -Qdt'
+alias pacorphan='pacman -Qtdq'
+alias pacforeign='pacman -Qqm'
 
 # List packages (requires fzf) 
 alias pacs='pacman -Slq | fzf --multi --preview "pacman -Si {1}" | xargs -ro echo'

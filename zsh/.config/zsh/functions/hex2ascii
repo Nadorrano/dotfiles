@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Convert hexadecimal values to ascii
+
+function hex2ascii() 
+{
+  if (( ${#@} < 1 )) ; then
+    echo "Usage: hex2ascii <hex>"
+    echo "eg.: hex2ascii 0x7071"
+    echo "eg.: hex2ascii 0x70.0x71"
+  fi
+  echo "$1" | xxd -r
+}
+

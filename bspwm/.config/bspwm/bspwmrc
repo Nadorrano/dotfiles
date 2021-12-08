@@ -6,10 +6,13 @@
 #                           #
 #############################
 
-# Source colors
-[ -f "~/.cache/wal/colors.sh" ] && . "$HOME/.cache/wal/colors.sh"
+# Avoid blank windows with java
+export _JAVA_AWT_WM_NONREPARENTING=1
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+# Source colors
+[ -f "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh" ] && . "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
+
+bspc monitor -d I II III IV V VI VII VIII
 
 bspc config border_width            2
 bspc config window_gap              12
@@ -26,12 +29,9 @@ bspc config active_border_color     "$color13"
 bspc config normal_border_color     "$color0"
 
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a firefox desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
-
+bspc rule -a Gimp desktop='^6' state=floating follow=on
+bspc rule -a firefox desktop='^5'
+bspc rule -a Pcmanfm desktop='^6'
 
 
 #############################
@@ -40,38 +40,40 @@ bspc rule -a Screenkey manage=off
 #                           #
 #############################
 
+
 # Start sxhkd
 pgrep -x sxhkd > /dev/null && killall sxhkd
 sxhkd &
 
 # Set wallpaper
-xwallpaper --output LVDS1 --stretch ~/Immagini/nord-wallpaper-arch.png
+xwallpaper --output LVDS1 --stretch "${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
 
 # Set cursor
 xsetroot -cursor_name left_ptr
 
 # Launch dunst
-pgrep -x dunst > /dev/null && killall dunst
-
-dunst -lf  "$color0" \
-      -lb  "$color1" \
-      -lfr "$color8" \
-      -nf  "$color0" \
-      -nb  "$color1" \
-      -nfr "$color8" \
-      -cf  "$color0" \
-      -cb  "$color1" \
-      -cfr "$color8" > /dev/null 2>&1 &
+# pgrep -x dunst > /dev/null && killall dunst
+# 
+# dunst -lf  "$color0" \
+#       -lb  "$color1" \
+#       -lfr "$color8" \
+#       -nf  "$color0" \
+#       -nb  "$color1" \
+#       -nfr "$color8" \
+#       -cf  "$color0" \
+#       -cb  "$color1" \
+#       -cfr "$color8" > /dev/null 2>&1 &
 
 
 # Launch Lemonbar
 pgrep -x lemonbar > /dev/null && killall lemonbar
-~/.config/lemonbar/powerwalbar.sh
+${XDG_CONFIG_HOME:-$HOME/.config}/lemonbar/powerwalbar.sh
 
 # Launch conky
 pgrep -x conky > /dev/null && killall conky
 conky --daemon
 
 # Launch picom compositor
+pgrep -x picom > /dev/null && killall picom
 picom &
 

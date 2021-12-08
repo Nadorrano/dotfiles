@@ -1,0 +1,5 @@
+
+function playonlinux {
+  echo | su -c "playonlinux" wineuser
+}
+

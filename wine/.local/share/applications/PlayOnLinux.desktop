@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=PlayOnLinux
+Comment=Front-end application for the wine
+Type=Application
+Exec=sh -c "echo | su -c playonlinux %F wineuser"
+Icon=playonlinux
+Categories=Utility;Emulator;

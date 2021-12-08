@@ -49,5 +49,5 @@ fi
 #exec xterm -geometry 80x66+0+0 -name login
 
 # Start bspwm
-exec bspwm
+exec dbus-launch bspwm
 

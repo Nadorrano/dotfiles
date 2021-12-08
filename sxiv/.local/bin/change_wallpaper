@@ -1,0 +1,35 @@
+#!/bin/sh
+
+WALLPAPER_FOLDER="$HOME/Immagini/Wallpapers"
+WALLPAPER_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
+
+if [[ $1 == "-h" ]]; then
+  echo "Usage: change_wallpaper <option>"
+  echo -e "Options:\n -h     Show this help\n -nt    Does not calculate wal palette"
+  exit
+fi
+
+image=$(sxiv -rqot $WALLPAPER_FOLDER)
+
+if [[ ! -z $image ]]; then
+  cp "$image" "$WALLPAPER_CACHE"
+  
+  xwallpaper --output LVDS1 --stretch $WALLPAPER_CACHE
+  
+  if [[ $? -eq 0 ]]; then
+    notify-send "Wallpaper changed."
+  else
+    notify-send --urgency=critical "Wallpaper not changed."
+  fi
+  if [[ $1 != "-nt" ]]; then
+    wal -i "$image"
+    
+    if [[ $? -eq 0 ]]; then
+      notify-send "Theme changed."
+    else
+      notify-send --urgency=critical "Theme not changed."
+    fi
+  fi
+fi
+
+

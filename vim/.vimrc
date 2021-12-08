@@ -17,6 +17,7 @@ set expandtab
 " UI Config {{{  
 set background=dark     " dark mode
 colorscheme gruvbox     " set color scheme
+set title               " Set the title of the window
 set mouse=a             " mouse support
 set encoding=utf-8      " set encoding
 set number              " show line numbers
@@ -24,6 +25,7 @@ set showcmd             " show command in bottom bar
 set showmatch           " match brackets
 set splitright          " open new files on the right split
 set splitbelow          " open new files on the bottom split
+set backspace=indent,eol,start      " Backspace go to earlier line 
 " enable truecolors in st
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -35,15 +37,41 @@ set lazyredraw
 " }}}
 " Plugins {{{
 " NERDTree
+let NERDTreeShowHidden = 1
 let g:NERDTreeDirArrowExpandable = '► '
 let g:NERDTreeDirArrowCollapsible = '▼ '
-let NERDTreeShowHidden=1
+let g:NERDTreeIgnore = ['.git', 'node_modules', '__pycache__']      " Things to hide
 " map nerdtree plugin to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 " Powerline
 set laststatus=2        " Always display the statusline
 set showtabline=2       " Always display the tabline
 set noshowmode          " Hide the default mode text
+" fzf
+let g:fzf_buffers_jump = 1                                          " Jump to the existing window if possible
+let g:fzf_preview_window = ['right:50%,border-left', 'ctrl-/']      " Preview buffer on the right side of the window with 60% width
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'Normal'} }    " Fzf window layout configs for default search
+
+let g:fzf_colors = {
+            \ 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'], 
+            \ 'hl':      ['fg', 'Comment'], 
+            \ 'fg+':     ['fg', 'IncSearch', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'Normal'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Normal'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
+" LS command
+command! -complete=dir -nargs=? LS call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}))
+" Dotfiles
+let dotfiles = 'git --git-dir=$HOME/.dotfiles/.git ls-tree --full-tree --name-only -r HEAD | sed "s,^,$HOME/.dotfiles/,"'
+command! Dotfiles call fzf#run(fzf#wrap({ 'source': dotfiles, 'window': { 'height': 0.3, 'width': 0.4 }}))
 " }}}
 " Key Remapping {{{
 " Fix scrolling bug with st terminal
@@ -53,10 +81,9 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
-" Use CTRL-S for saving, also in Insert mode
-noremap <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR>
+" Window Resizing, change the width of windows using {+, -}
+nnoremap + :vertical resize +2<CR>
+nnoremap - :vertical resize -2<CR>
 " Mistakes!
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -72,8 +99,10 @@ cnoreabbrev Qall qall
 cmap w!! w !sudo tee %
 " }}}
 " Searching {{{
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
+set incsearch           " Search as characters are entered
+set hlsearch            " Highlight matches
+set ignorecase          " Case insensitive search
+set smartcase           " Case sensitive search with uppercase search terms
 " alias to turn off search highlight
 nnoremap <A-Space> :nohlsearch<CR>
 " }}}
@@ -92,29 +121,10 @@ set modelines=1
 augroup configgroup
    autocmd!
    autocmd VimEnter * highlight clear SignColumn
-   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h
+   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h,*.css,*.html,*.rs
                            \ :call <SID>StripTrailingWhitespaces()
-   autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
-   autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
-   autocmd FileType java setlocal noexpandtab list listchars=tab:+\ ,eol:-
-   autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-   autocmd FileType php setlocal expandtab list listchars=tab:+\ ,eol:-
-   autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-   autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-   autocmd FileType ruby setlocal commentstring=#\ %s
-   autocmd FileType python setlocal commentstring=#\ %s tabstop=4 softtabstop=4 expandtab
-   autocmd FileType python setlocal commentstring=#\ %s 
-   autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
-   autocmd FileType python match Excess /\%80v.*/
-   autocmd FileType python set nowrap
-   autocmd FileType perl setlocal tabstop=8 softtabstop=8 expandtab commentstring=#\ %s
-   autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
-   autocmd Filetype sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
-   autocmd Filetype zsh setlocal tabstop=2 shiftwidth=2 softtabstop=2
    autocmd BufEnter *.cls setlocal filetype=java
    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-   autocmd BufEnter Makefile setlocal noexpandtab
-   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 augroup END
 " }}}
 " Custom Functions {{{
