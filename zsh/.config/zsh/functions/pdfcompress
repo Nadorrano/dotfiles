@@ -1,15 +1,18 @@
 # Compress a PDF file
 
 function pdfcompress {
- if [ -z "$1" ]; then
+  if [ $# -eq 0 ] ; then
     # display usage if no parameters given
-    echo "Usage: pdfcompress <path/file_name>.pdf [<path/file_name_1>.pdf] ..."
-    echo "Output:  <path/file_name>.compressed.pdf [<path/file_name_1>.compressed.pdf] ..."
- else
-    for n in "$@"
-    do
-        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile=$(echo "$n" | cut -f 1 -d '.').compressed.pdf "$n"
-    done
-fi
+    echo "pdfcompress: compress pdf files" 
+    echo
+    echo "Usage: pdfcompress <file_name>.pdf [<file_name_1>.pdf] ..."
+    echo "Output: <file_name>.compressed.pdf [<file_name>-1.compressed.pdf] ..."
+  else
+    gs -sDEVICE=pdfwrite            \
+       -dCompatibilityLevel=1.4     \
+       -dPDFSETTINGS=/ebook         \
+       -dPrinted=false              \
+       -o "$(echo $1 | rev | cut -f 2- -d '.' | rev)-%d.compressed.pdf" "$@"
+  fi
 }
 

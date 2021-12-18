@@ -7,50 +7,98 @@
 # | |___|  __/ | | | | | (_) | | | | |_) | (_| | |
 # |______\___|_| |_| |_|\___/|_| |_|_.__/ \__,_|_|
 #
-#  github.com/fikriomar16
+# Launcher
+#
+
 
 pkill lemonbar
 
+# load wal colors
 . ~/.cache/wal/colors.sh
 
+# load widgets
 . ~/.config/lemonbar/widgets.sh
 
-#f1="FontAwesome 5 Free:style=Solid:size=9"
-#f1="Material Icons:size=10"
-#f1="NotoSansDisplay Nerd Font:size=10"
-#f1="NotoSansMono Nerd Font:size=10"
-#f1="NotoSerif Nerd Font:size=10"
-#f1="RobotoMono Nerd Font:size=11"
-#f2="Arimo for Powerline:size=10"
-#f2="monofur for Powerline:size=11"
-#f2="FantasqueSansMono Nerd Font:size=10"
-#f1="OverpassMono Nerd Font:size=10"
-#f2="Tinos for Powerline:size=11"
-f2="LiterationSerif Nerd Font:size=11"
-f1="iMWritingDuospace Nerd Font:size=9"
-#f1="Arimo Nerd Font:size=11"
-#f2="LiterationSans Nerd Font:size=11"
-#f1="Ubuntu Nerd Font:size=11"
-#f1="iMWritingMonos Nerd Font:size=10"
+# config
+SHOW_VOLUME_LABEL=true
+SHOW_BATTERY_LABEL=true
+SHOW_NETWORK_LABEL=true
 
+# fonts
+f1="Meslo LG M:size=9"
+f2="OverpassMono Nerd Font:size=9.5"
+
+# powerbar symbols
 righthard=""
 rightsoft=""
 lefthard=""
 leftsoft=""
 
+# setup the FIFO
+PANEL_FIFO="/tmp/panel.fifo"
 
-while true; do
-    string=" 
-    %{l}%{B$color2}%{F$color7}$(menu)%{RB$color4}$righthard
-    $(get_ws)%{F$color4}%{B$color0}$righthard
-    %{B$color0}%{F$color7}$(get_window)
-    %{r}%{F$color4}$lefthard%{RF$color0}$(network)
-    %{F$color2}$lefthard%{RF$color0}$(volume)
-    %{F$color4}$lefthard%{RF$color0}$(battery)
-    %{F$color2}$lefthard%{RF$color0}$(calendar) 
-    %{F$color4}$lefthard%{RF$color0}$(clock)
-    %{F$color2}$lefthard%{RF$color0}$(power_icon)%{B-}%{F-}"
-    echo -n $string
-    sleep 1
-done | lemonbar -g x18 -p -f "${f1}" -f "${f2}" -B "$color0" -F "$color4" -a 20  | sh & > /dev/null
+[[ -e "$PANEL_FIFO" ]] && rm "$PANEL_FIFO"
+
+mkfifo "$PANEL_FIFO"
+
+panel_builder() {
+  while read -r data; do
+    case "$data" in
+      MEN*)                   # dropdown menu
+        men="${data#???}"
+        ;;
+      WSP*)                   # workspace selector
+        wsp="${data#???}"   
+        ;;
+      WIN*)                   # current window title
+        win="${data#???}"
+        ;;
+      NET*)                   # network
+        net="${data#???}"
+        ;;
+      VOL*)                   # volume
+        vol="${data#???}"
+        ;;
+      BAT*)                   # battery
+        bat="${data#???}"
+        ;;
+      DAT*)                   # date
+        dat="${data#???}"
+        ;;
+      TIM*)                   # time
+        tim="${data#???}"
+        ;;
+      POW*)                   # power off
+        pow="${data#???}"
+        ;;
+    esac
+    string="%{l B$color2 F$color7}${men}%{RB$color4}$righthard"
+    string+="${wsp}%{F$color4 B$color0}$righthard"
+    string+="%{B$color0 F$color7}${win}"
+    string+="%{r F$color4}$lefthard%{RF$color0}${net}"
+    string+="%{F$color2}$lefthard%{RF$color0}${vol}"
+    string+="%{F$color4}$lefthard%{RF$color0}${bat}"
+    string+="%{F$color2}$lefthard%{RF$color0}${dat}"
+    string+="%{F$color4}$lefthard%{RF$color0}${tim}"
+    string+="%{F$color2}$lefthard%{RF$color0}${pow}%{B-F-}"
+    echo $string
+  done
+}
+
+
+menu        >  "$PANEL_FIFO"  & 
+get_ws      >  "$PANEL_FIFO"  &
+get_window  >  "$PANEL_FIFO"  &
+network     >  "$PANEL_FIFO"  &
+volume      >  "$PANEL_FIFO"  &
+battery     >  "$PANEL_FIFO"  &
+power_icon  >  "$PANEL_FIFO"  &
+calendar    >  "$PANEL_FIFO"  &
+clock       >  "$PANEL_FIFO"  &
+
+# launch lemonbar
+panel_builder < "$PANEL_FIFO" | lemonbar -g x18 -p -a 20            \
+                                         -f "${f1}" -f "${f2}"      \
+                                         -B "$color0" -F "$color4"  \
+                                          | sh > /dev/null & 
 

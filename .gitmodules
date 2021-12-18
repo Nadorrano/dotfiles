@@ -31,3 +31,6 @@
 [submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "vim/.vim/pack/themes/start/nord-vim"]
+	path = vim/.vim/pack/themes/start/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim

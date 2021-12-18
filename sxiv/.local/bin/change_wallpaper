@@ -4,14 +4,15 @@ WALLPAPER_FOLDER="$HOME/Immagini/Wallpapers"
 WALLPAPER_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
 
 if [[ $1 == "-h" ]]; then
-  echo "Usage: change_wallpaper <option>"
-  echo -e "Options:\n -h     Show this help\n -nt    Does not calculate wal palette"
+  echo -e "Usage: change_wallpaper <option>\n"                  \
+          "Options:\n\t-h     Show this help"                   \
+                  "\n\t-n     Does not calculate wal palette"
   exit
 fi
 
 image=$(sxiv -rqot $WALLPAPER_FOLDER)
 
-if [[ ! -z $image ]]; then
+if [[ ! -z "$image" ]]; then
   cp "$image" "$WALLPAPER_CACHE"
   
   xwallpaper --output LVDS1 --stretch $WALLPAPER_CACHE
@@ -21,7 +22,7 @@ if [[ ! -z $image ]]; then
   else
     notify-send --urgency=critical "Wallpaper not changed."
   fi
-  if [[ $1 != "-nt" ]]; then
+  if [[ $1 != "-n" ]]; then
     wal -i "$image"
     
     if [[ $? -eq 0 ]]; then
@@ -31,5 +32,4 @@ if [[ ! -z $image ]]; then
     fi
   fi
 fi
-
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -e
 
 # It seems that in conky the execi command will start before curl has completely
 # written the file. For some reason adding a sleep before calling curl fixes it.
@@ -25,14 +25,6 @@ exclude="&exclude=minutely,hourly"
 # Request
 curl -s "${api_prefix}${appid}${lat}${lon}${units}${lang}${exclude}"        \
      -o "$weather_file"
-
-# Copy forecast icons
-cp -f "$cache_dir/icons/$(jq '.daily[0].weather[0].id' $weather_file).png"  \
-      "$cache_dir/weather-1.png"
-cp -f "$cache_dir/icons/$(jq '.daily[1].weather[0].id' $weather_file).png"  \
-      "$cache_dir/weather-2.png"
-cp -f "$cache_dir/icons/$(jq '.daily[2].weather[0].id' $weather_file).png"  \
-      "$cache_dir/weather-3.png"
 
 # Send notification about local weather alarms
 IFS=$'\n'

@@ -1,0 +1,34 @@
+# Extract pages from a pdf file
+
+function pdfextract {
+  if [ $# -eq 0 ] || [ $# -gt 3 ] ; then
+    # display usage if no parameters given
+    echo "pdfextract: extract pages from a pdf file"
+    echo
+    echo "Usage: pdfextract <file_name.pdf>"
+    echo "       pdfextract <page_no> <file_name.pdf>"
+    echo "       pdfextract <first_page> <last_page> <file_name.pdf>"
+    echo
+    echo "Output: <file_name>-page-<page_no>.pdf"
+    echo "        <file_name>-pages_<first_page>-<last_page>.pdf"
+    echo
+    echo "Note: pages are zero-based"
+  elif [ $# -eq 1 ] ; then
+    gs -sDEVICE=pdfwrite            \
+       -dCompatibilityLevel=1.4     \
+       -o "$(echo ${@} | rev | cut -f 2- -d '.' | rev)-p%03d.pdf" "${@}"
+  elif [ $# -eq 2 ] ; then
+    gs -sDEVICE=pdfwrite            \
+       -dCompatibilityLevel=1.4     \
+       -dFirstPage="${1}"           \
+       -dLastPage="${1}"            \
+       -o "$(echo ${@:2} | rev | cut -f 2- -d '.' | rev)-p${1}.pdf" "${@:2}"
+  elif [ $# -eq 3 ] ; then
+    gs -sDEVICE=pdfwrite            \
+       -dCompatibilityLevel=1.4     \
+       -dFirstPage="${1}"           \
+       -dLastPage="${2}"            \
+       -o "$(echo ${@:3} | rev | cut -f 2- -d '.' | rev)-p${1}-${2}.pdf" "${@:3}"
+  fi
+}
+

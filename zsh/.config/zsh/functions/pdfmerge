@@ -1,0 +1,16 @@
+# Merge pdf files
+
+function pdfmerge {
+  if [ $# -eq 0 ]; then
+    # display usage if no parameters given
+    echo "pdfmerge: merge pdf files"
+    echo
+    echo "Usage: pdfmerge <file_name>.pdf [<file_name_1>.pdf] ..."
+    echo "Output: <file_name>-merged.pdf"
+  else
+    gs -sDEVICE=pdfwrite            \
+       -dCompatibilityLevel=1.4     \
+       -o "$(echo ${1} | rev | cut -f 2- -d '.' | rev)-merged.pdf" "${@}"
+  fi
+}
+

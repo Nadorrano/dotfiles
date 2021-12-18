@@ -15,8 +15,9 @@ set softtabstop=4
 set expandtab
  " }}}
 " UI Config {{{  
-set background=dark     " dark mode
-colorscheme gruvbox     " set color scheme
+colorscheme nord     " set color scheme
+set termguicolors
+hi Normal guibg=#10171f
 set title               " Set the title of the window
 set mouse=a             " mouse support
 set encoding=utf-8      " set encoding
@@ -29,7 +30,6 @@ set backspace=indent,eol,start      " Backspace go to earlier line
 " enable truecolors in st
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
 " Vim loves to redraw the screen during things it probably doesn't need
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
@@ -43,7 +43,7 @@ let g:NERDTreeDirArrowCollapsible = '▼ '
 let g:NERDTreeIgnore = ['.git', 'node_modules', '__pycache__']      " Things to hide
 " map nerdtree plugin to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
-" Powerline
+" Lightline
 set laststatus=2        " Always display the statusline
 set showtabline=2       " Always display the tabline
 set noshowmode          " Hide the default mode text
@@ -67,6 +67,8 @@ let g:fzf_colors = {
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
 
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endifk
 " LS command
 command! -complete=dir -nargs=? LS call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}))
 " Dotfiles
@@ -142,7 +144,7 @@ function ToAscii()
 endfunction
 command! Binary call ToBinary()
 command! Ascii call ToAscii()
-" Menu selection of some characters
+" Menu selection of some characters not working on my keyboard
 function Pars()
         set cmdheight=2
         echohl Title | echom 'Scelte:' | echohl None
