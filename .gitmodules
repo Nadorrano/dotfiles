@@ -38,3 +38,6 @@
 	path = vim/.vim/pack/plugins/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = release
+[submodule "vim/.vim/pack/plugins/start/indentLine"]
+	path = vim/.vim/pack/plugins/start/indentLine
+	url = https://github.com/Yggdroot/indentLine.git

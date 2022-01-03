@@ -79,6 +79,8 @@ cnoreabbrev Qall qall
 cmap w!! w !sudo tee %
 " }}}
 " Plugins {{{
+" Indent lines
+let g:indentLine_char = ''
 " NERDTree
 let NERDTreeShowHidden = 1
 let g:NERDTreeDirArrowExpandable = '► '
