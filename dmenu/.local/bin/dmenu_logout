@@ -1,19 +1,20 @@
 #!/bin/bash
 
-LABELS="Annulla
-Logout
-Riavvia
-Spegni
-"
+#
+# Logout options with dmenu
+#
 
-. ~/.cache/wal/colors.sh
 
-CHOICE=$(echo -n "$LABELS" | dmenu -i -h 18 -nb $color0 -nf $color1 -sb $color2 -sf $color7 -fn "FantasqueSansMono Nerd Font:size=10")
-case $CHOICE in
-Logout) exec killall Xorg;;
-Riavvia) exec reboot;;
-Spegni) exec shutdown now;;
-Annulla) ;;
-*) ;;
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
+
+choice=$(echo -e "Annulla\nLogout\nRiavvia\nSpegni"             |
+         dmenu -i "${DMENU_BAR[@]}" "${DMENU_WAL_THEME[@]}")
+
+case $choice in
+  "Logout") exec killall Xorg;;
+  "Riavvia") exec reboot;;
+  "Spegni") exec shutdown now;;
+  "Annulla") ;;
+  *) ;;
 esac
 

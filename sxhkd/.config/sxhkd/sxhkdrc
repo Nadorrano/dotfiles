@@ -9,7 +9,6 @@ super + Return
 # program launcher
 super + @space
     rofi -me-select-entry '' -me-accept-entry "MousePrimary" -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/ribbon_top.rasi
-	# dmenu_run
 
 # open/close a side gap to show conky
 super + c
@@ -22,6 +21,10 @@ super + d
 # start browser
 super + b
     firefox
+
+# start browser
+super + m
+    dmenu_mpd
 
 # make sxhkd reload its configuration files:
 super + Escape

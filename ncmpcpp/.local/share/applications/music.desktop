@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Musica
+Comment=ncmpcpp with tmux and ueberzug
+Type=Application
+Exec=st -c "Musica" -t "Musica" -e tmux new-session -s $$ "tmux source-file ~/.config/ncmpcpp/tsession"
+Icon=mpd
+Categories=Multimedia;Music;

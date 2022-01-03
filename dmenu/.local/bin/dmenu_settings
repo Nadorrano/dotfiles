@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#
+# Change settings with dmenu
+#
+
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
+
+choice=$(echo -e "Cambia wallpaper\nCambia tema\nEsci"          | 
+         dmenu -i "${DMENU_BAR[@]}" "${DMENU_WAL_THEME[@]}")
+
+case $choice in
+  "Cambia wallpaper") exec change_wallpaper;;
+  "Cambia tema") exec change_wallpaper -t;;
+  "Esci") ;;
+  *) ;;
+esac
+

@@ -13,10 +13,7 @@
 
 menu() {
   while :; do
-    icon=" "    # f303
-    string="MEN%{A:rofi -me-accept-entry 'MousePrimary' -me-select-entry '' "
-    string+="-no-lazy-grab -show drun -modi drun "
-    string+="-theme ~/.config/rofi/style_5.rasi:} $icon %{A}"
+    string="MEN%{A:dmenu_settings:}   %{A}"   # f303
     echo "$string"
     sleep 1
   done
@@ -25,15 +22,16 @@ menu() {
 
 get_ws() {
   while :; do
-    desk=$(xdotool get_desktop)
-    wsname=("  " "  " "  " "  " "ﱘ ")
+    current_desktop=$(xdotool get_desktop)
+    desks=$(xprop -root _NET_DESKTOP_NAMES | sed -E 's/^.*=|[",]//g')
+    desktop_names=($desks)
     string=""
-    for i in "${!wsname[@]}"; do 
+    for i in "${!desktop_names[@]}"; do 
       string+="%{B$color4 F$color0 A:xdotool set_desktop $i:}"
-      if [[ "$((desk))" == "$i" ]]; then
+      if [[ "$((current_desktop))" == "$i" ]]; then
         string+="%{B$color4 F$color7}"
       fi
-      string+="${wsname[$i]}%{A B- F-}"
+      string+=" ${desktop_names[$i]}%{A B- F-}"
     done
     echo "WSP$string"
     sleep 1
@@ -45,7 +43,7 @@ get_window() {
   while :; do
 	  window_title=$(echo -n "$(xdotool getwindowfocus getwindowname)"  | 
       awk -v len=56 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }')
-    echo "WIN%{A:rofi -show window:}  $window_title %{A}" # f2d0
+    echo "WIN%{A:dmenu_windows:}  $window_title %{A}" # f2d0
     sleep 3
   done
 }
@@ -83,7 +81,7 @@ network() {
     else
       string="$icon"
     fi
-    echo "NET%{A3:st -e nmtui:}$string%{A}"
+    echo "NET%{A:dmenu_wifi: A3:st -e nmtui:}$string%{A A}"
     sleep 30
   done
 }

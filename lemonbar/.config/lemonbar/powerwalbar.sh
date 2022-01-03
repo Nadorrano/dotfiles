@@ -99,6 +99,6 @@ clock       >  "$PANEL_FIFO"  &
 # launch lemonbar
 panel_builder < "$PANEL_FIFO" | lemonbar -g x18 -p -a 20            \
                                          -f "${f1}" -f "${f2}"      \
-                                         -B "$color0" -F "$color4"  \
-                                          | sh > /dev/null & 
+                                         -B "$color0" -F "$color4"  |
+                                         sh > /dev/null & 
 

@@ -1,34 +1,41 @@
 #!/bin/sh
 
+#
+# use sxiv as a menu for wallpaper selection or pywal theme
+# generation
+#
+
+
 WALLPAPER_FOLDER="$HOME/Immagini/Wallpapers"
 WALLPAPER_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
 
 if [[ $1 == "-h" ]]; then
   echo -e "Usage: change_wallpaper <option>\n"                  \
           "Options:\n\t-h     Show this help"                   \
-                  "\n\t-n     Does not calculate wal palette"
+                  "\n\t-t     Change pywal theme instead" 
   exit
 fi
 
 image=$(sxiv -rqot $WALLPAPER_FOLDER)
 
 if [[ ! -z "$image" ]]; then
-  cp "$image" "$WALLPAPER_CACHE"
-  
-  xwallpaper --output LVDS1 --stretch $WALLPAPER_CACHE
-  
-  if [[ $? -eq 0 ]]; then
-    notify-send "Wallpaper changed."
-  else
-    notify-send --urgency=critical "Wallpaper not changed."
-  fi
-  if [[ $1 != "-n" ]]; then
+  if [[ $1 == "-t" ]]; then
     wal -i "$image"
     
     if [[ $? -eq 0 ]]; then
       notify-send "Theme changed."
     else
-      notify-send --urgency=critical "Theme not changed."
+      notify-send --urgency=critical "ERROR: theme not changed."
+    fi
+  else
+    cp "$image" "$WALLPAPER_CACHE"
+  
+    xwallpaper --output LVDS1 --stretch "$WALLPAPER_CACHE"
+  
+    if [[ $? -eq 0 ]]; then
+      notify-send "Wallpaper changed."
+    else
+      notify-send --urgency=critical "ERROR: wallpaper not changed."
     fi
   fi
 fi

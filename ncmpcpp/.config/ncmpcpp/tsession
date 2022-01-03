@@ -1,0 +1,20 @@
+neww
+set -g status off
+
+#image pane; run cover script
+send-keys "~/.config/ncmpcpp/cover.sh " C-m
+
+#catalog pane; run instance of ncmpcpp
+split-window -h
+send-keys "ncmpcpp" C-m
+
+#resize image and visualizer pane to fit image
+resize-pane -t 0 -x 49 -y 21
+resize-pane -t 1 -y 21
+
+#hook for keeping the image pane size constant
+set-hook client-resized 'resize-pane -t 0 -x 49 -y 21'
+
+#focus on catalog pane
+select-pane -t 2
+

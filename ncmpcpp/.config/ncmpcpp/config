@@ -19,8 +19,8 @@
 ## MPD clients (eg. ncmpc) also use that location.
 ##
 #
-#lyrics_directory = ~/.lyrics
-#
+lyrics_directory = ~/.cache/lyrics
+
 ##### connection settings #####
 #
 #mpd_host = localhost
@@ -317,8 +317,8 @@ visualizer_look = ●▮
 ## Note: Custom command that will be executed each time song changes. Useful for
 ## notifications etc.
 ##
-#execute_on_song_change = ""
-#
+execute_on_song_change = "~/.config/ncmpcpp/cover_update.sh"
+
 ##
 ## Note: Custom command that will be executed each time player state
 ## changes. The environment variable MPD_PLAYER_STATE is set to the current
@@ -338,8 +338,8 @@ visualizer_look = ●▮
 ##
 ## Note: Possible display modes: classic, columns.
 ##
-#playlist_display_mode = columns
-#
+playlist_display_mode = classic
+
 #browser_display_mode = classic
 #
 #search_engine_display_mode = classic
@@ -390,8 +390,8 @@ user_interface = alternative
 #
 #default_tag_editor_pattern = %n - %t
 #
-#header_visibility = yes
-#
+header_visibility = no
+
 #statusbar_visibility = yes
 #
 ## Show the "Connected to ..." message on startup

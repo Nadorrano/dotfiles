@@ -1,19 +1,25 @@
 #!/bin/bash
 
-source $HOME/.cache/wal/colors.sh
+#
+# launch .desktop applications from dmenu
+#
+
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
 
 declare -A apps
 
 for path in {/usr/share/applications,$HOME/.local/share/applications}/*.desktop
 do
-  key=$(awk '/^Name=/{sub(/^Name=/, ""); print}' "$path")
-  value=$(awk '/^Exec=/{sub(/^Exec=/, ""); print}' "$path")
-  apps[$key]=$value
+  name=$(grep -oP '^Name=\K.+(?=$)' "$path")
+  cmd=$(grep -oP '^Exec=\K.+(?=$)' "$path")
+  apps[$name]=$cmd
 done
 
-CHOICE=$(IFS=$'\n'; echo "${!apps[*]}" | dmenu -l 20 -c -bw 5 -nb $color0 -nf $color1 -sb $color2 -sf $color7)
+choice=$(IFS=$'\n'; echo "${!apps[*]}"                          |
+         dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
 
-exec "${apps[$CHOICE]}"
+exec "${apps[$choice]}"
 
 unset apps
 

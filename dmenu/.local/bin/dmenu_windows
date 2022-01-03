@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#
+# dmenu script to select a wm window through a dmenu and focus to it
+# 
+
+
+declare -A windows
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
+
+desks=$(xprop -root _NET_DESKTOP_NAMES | sed -E 's/^.*=|[",]//g')
+desktop_names=($desks)
+
+win_ids=$(xprop -root _NET_CLIENT_LIST | pcregrep -o1 '# (.*)' | sed 's/, /\n/')
+
+for id in $win_ids; do
+  win_name=$(xprop -id $id _NET_WM_NAME | grep -oP '"\K.+(?=")')
+  app=$(xprop -id $id WM_CLASS | grep -oP ', "\K.+(?=")')
+  desktop=$(xprop -id $id _NET_WM_DESKTOP | grep -oP '= \K.+(?=$)')
+  windows["${desktop_names[$desktop]}   $app - $win_name "]=$desktop
+done
+
+choice=$(IFS=$'\n'; echo "${!windows[*]}" |
+         dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
+
+xdotool set_desktop "${windows[$choice]}"
+
+unset apps
+

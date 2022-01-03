@@ -1,18 +1,19 @@
 #! /bin/sh
 
-#############################
+#===========================#
 #                           #
 #       * Settings *        #
 #                           #
-#############################
+#===========================#
 
 # Avoid blank windows with java
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Source colors
-[ -f "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh" ] && . "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
+colors="${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
+[ -f  "$colors" ] && source "$colors"
 
-bspc monitor -d I II III IV V VI VII VIII
+bspc monitor -d         ﱘ 
 
 bspc config border_width            2
 bspc config window_gap              12
@@ -29,16 +30,22 @@ bspc config active_border_color     "$color13"
 bspc config normal_border_color     "$color0"
 
 
+# Layout of music desktop
+bspc node @^5:/ -i
+bspc node @^5:/ -p north -i -R 90
+bspc rule -a Musica -o node=@^5:/1
+
 bspc rule -a Gimp desktop='^4' state=floating follow=on
 bspc rule -a firefox desktop='^2'
 bspc rule -a Pcmanfm desktop='^3'
+bspc rule -a Musica -o node=@^5:/1
 
 
-#############################
+#===========================#
 #                           #
 #   * Init Applications *   #
 #                           #
-#############################
+#===========================#
 
 
 # Start sxhkd

@@ -1,0 +1,95 @@
+#!/bin/bash
+
+#
+# dmenu script to control mpd
+#
+
+
+# dmenu themes
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
+
+# dmenu command
+menu_cmd=(dmenu -i ${DMENU_BAR[@]} "${DMENU_WAL_THEME[@]}")
+
+
+crossfade() {
+  echo -e "0\n5" | "${menu_cmd[@]}" -p "Crossfade" | xargs mpc crossfade
+}
+
+
+now_playing() {
+  echo "$(mpc current)" | "${menu_cmd[@]}" -p "Now playing"
+}
+
+
+seek() {
+  "${menu_cmd[@]}" -p "Seek [+-]<HH:MM:SS>] or [+-]<0-100>%" |
+  xargs -I {} mpc seek "{}"
+}
+
+
+search() {
+  "${menu_cmd[@]}" -p " Search"                  |
+  xargs mpc search any                            |
+  "${menu_cmd[@]}" -l 5 -p "螺 Add to playlist"   |
+  xargs -I {} mpc add "{}" 
+}
+
+
+playlist() {
+  mpc playlist -f "%position% - %title% - %artist%"   |
+  "${menu_cmd[@]}" -l 5 -p "蘿 Play"                  |
+  grep -oP '^[0-9]*' | xargs mpc play
+}
+
+
+load() {
+  mpc clear
+  mpc lsplaylists               |
+  "${menu_cmd[@]}" -p "Track"   |
+  xargs mpc load
+  mpc play
+}
+
+
+# Get user action
+choice=$(echo -e \
+" Prev
+ Next
+ Pause
+ Stop
+ Play
+ Seek
+ Random
+ Repeat
+綾 Single
+ Consume
+ Search
+蘿 Playlist
+ Crossfade
+ Now playing
+懶 Toggle
+裸 Clear
+螺 Load" | "${menu_cmd[@]}" -p "   ")
+
+
+case "$choice" in
+  " Consume")      mpc consume   ;;
+  " Crossfade")    crossfade     ;; 
+  " Now playing")  now_playing   ;;
+  " Next")         mpc next      ;;
+  " Pause")        mpc pause     ;;
+  " Play")         mpc play      ;;
+  " Prev")         mpc prev      ;;
+  " Random")       mpc random    ;;
+  " Repeat")       mpc repeat    ;;
+  "綾 Single")      mpc single    ;;
+  " Seek")         seek          ;;
+  " Stop")         mpc stop      ;;
+  "懶 Toggle")      mpc toggle    ;;
+  "裸 Clear")       mpc clear     ;;
+  " Search")       search        ;;
+  "蘿 Playlist")    playlist      ;;
+  "螺 Load")        load          ;;
+esac
+
