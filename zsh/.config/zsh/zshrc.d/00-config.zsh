@@ -16,7 +16,7 @@ fpath=( $ZDOTDIR/functions "${fpath[@]}" )
 # Load hook function
 autoload -Uz add-zsh-hook
 # Load custom functions
-autoload -U $ZDOTDIR/functions/*(@,.:t)
+autoload -U "$ZDOTDIR"/functions/*(@,.:t)
 
 # Set terminal window title
 function xterm_title_precmd () {
