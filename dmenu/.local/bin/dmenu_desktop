@@ -19,7 +19,7 @@ done
 choice=$(IFS=$'\n'; echo "${!apps[*]}"                          |
          dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
 
-exec "${apps[$choice]}"
+[[ -z "$choice" ]] || exec "${apps[$choice]}"
 
 unset apps
 

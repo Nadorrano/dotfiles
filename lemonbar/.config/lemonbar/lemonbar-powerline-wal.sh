@@ -75,11 +75,11 @@ panel_builder() {
     string="%{l B$color2 F$color7}${men}%{RB$color4}$righthard"
     string+="${wsp}%{F$color4 B$color0}$righthard"
     string+="%{B$color0 F$color7}${win}"
-    string+="%{r F$color4}$lefthard%{RF$color0}${net}"
+    string+="%{r F$color5}$lefthard%{RF$color0}${net}"
     string+="%{F$color2}$lefthard%{RF$color0}${vol}"
-    string+="%{F$color4}$lefthard%{RF$color0}${bat}"
+    string+="%{F$color5}$lefthard%{RF$color0}${bat}"
     string+="%{F$color2}$lefthard%{RF$color0}${dat}"
-    string+="%{F$color4}$lefthard%{RF$color0}${tim}"
+    string+="%{F$color5}$lefthard%{RF$color0}${tim}"
     string+="%{F$color2}$lefthard%{RF$color0}${pow}%{B-F-}"
     echo $string
   done

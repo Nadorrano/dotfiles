@@ -24,7 +24,7 @@ done
 choice=$(IFS=$'\n'; echo "${!windows[*]}" |
          dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
 
-xdotool set_desktop "${windows[$choice]}"
+[[ -z "$choice" ]] || xdotool set_desktop "${windows[$choice]}"
 
 unset apps
 

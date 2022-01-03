@@ -74,7 +74,7 @@ xsetroot -cursor_name left_ptr
 
 # Launch Lemonbar
 pgrep -x lemonbar > /dev/null && killall lemonbar
-${XDG_CONFIG_HOME:-$HOME/.config}/lemonbar/powerwalbar.sh
+sh "${XDG_CONFIG_HOME:-$HOME/.config}/lemonbar/lemonbar-powerline-wal.sh"
 
 # Launch conky
 pgrep -x conky > /dev/null && killall conky

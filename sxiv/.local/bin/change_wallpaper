@@ -20,7 +20,7 @@ image=$(sxiv -rqot $WALLPAPER_FOLDER)
 
 if [[ ! -z "$image" ]]; then
   if [[ $1 == "-t" ]]; then
-    wal -i "$image"
+    wal -n -i "$image" 
     
     if [[ $? -eq 0 ]]; then
       notify-send "Theme changed."
