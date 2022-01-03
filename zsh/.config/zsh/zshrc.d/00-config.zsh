@@ -43,6 +43,8 @@ function xterm_title_precmd () {
 [[ -f "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]   && 
   source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+# k for zsh
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/k/k.sh"
 
 #
 # Prompt
