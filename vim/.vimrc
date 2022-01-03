@@ -3,16 +3,19 @@
 
 " Setup {{{
 set nocompatible        " This must be first
+" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
+set hidden                          " TextEdit might fail if hidden is not set.
+" Some language servers have issues with backup files, see coc issue #649.
+set nobackup
+set nowritebackup
 " }}}
 " Syntax {{{  
-syntax enable           " Highlight syntax
-" Wrap gitcommit file types at the appropriate length
+syntax enable                       " Highlight syntax
 filetype indent plugin on
-" }}}
-" Spaces and Tabs   {{{
-set tabstop=4
-set softtabstop=4
-set expandtab
+" Spaces and Tabs
+set tabstop=4 softtabstop=4 expandtab
  " }}}
 " UI Config {{{  
 colorscheme nord                    " set color scheme
@@ -37,6 +40,17 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
 set lazyredraw
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 " }}}
 " Key Remapping {{{
 let mapleader=","                   " mapping the leader key to comma
@@ -81,8 +95,25 @@ autocmd FileType nerdtree nmap <buffer> <right> o
 autocmd FileType nerdtree nmap <buffer> l o 
 autocmd FileType nerdtree nmap <buffer> <left> x 
 autocmd FileType nerdtree nmap <buffer> h x
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" COC
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -95,9 +126,17 @@ nmap gn <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
 " show commit contains current position
 nmap gc <Plug>(coc-git-commit)
-
-" Rename
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Lightline
 " in some cases lightline does not show up at startup, this fix it
