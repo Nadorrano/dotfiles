@@ -10,7 +10,7 @@
 
 configuration {
     show-icons:                     true;
-    icon-theme:                     "Paper";
+    icon-theme:                     "Papirus";
     display-drun:                   " ";
     drun-display-format:            "{name}";
     disable-history:                false;

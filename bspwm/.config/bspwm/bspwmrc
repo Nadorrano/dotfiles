@@ -59,17 +59,8 @@ xwallpaper --output LVDS1 --stretch "${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
 xsetroot -cursor_name left_ptr
 
 # Launch dunst
-# pgrep -x dunst > /dev/null && killall dunst
-# 
-# dunst -lf  "$color0" \
-#       -lb  "$color1" \
-#       -lfr "$color8" \
-#       -nf  "$color0" \
-#       -nb  "$color1" \
-#       -nfr "$color8" \
-#       -cf  "$color0" \
-#       -cb  "$color1" \
-#       -cfr "$color8" > /dev/null 2>&1 &
+pgrep -x dunst > /dev/null && killall dunst
+dunst -conf "$HOME/.cache/wal/dunstrc" > /dev/null 2>&1 &
 
 
 # Launch Lemonbar
