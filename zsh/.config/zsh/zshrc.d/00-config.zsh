@@ -10,13 +10,15 @@ then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+fdir="${XDG_DATA_HOME:-$HOME/.local/share}/functions"
+
 # Add the function folder to fpath
-fpath=( $ZDOTDIR/functions "${fpath[@]}" )
+fpath=( "${fdir}" "${fpath[@]}" )
 
 # Load hook function
 autoload -Uz add-zsh-hook
 # Load custom functions
-autoload -U "$ZDOTDIR"/functions/*(@,.:t)
+autoload -U "${fdir}"/*(@,.:t)
 
 # Set terminal window title
 function xterm_title_precmd () {

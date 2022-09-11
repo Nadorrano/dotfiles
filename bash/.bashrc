@@ -24,6 +24,14 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 export HISTCONTROL=ignoreboth:erasedups
 
 #
+# Functions
+#
+
+for f in "${XDG_DATA_HOME:-$HOME/.local/share}/functions"/* ; do
+  source "$f"
+done
+
+#
 # Autocompletion
 #
 
