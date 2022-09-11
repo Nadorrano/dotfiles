@@ -1,0 +1,19 @@
+// Load colors from wal cache
+#include "/home/fonta/.cache/wal/colors.Xresources"
+
+// Preserve important colors
+*color1:       #c0392b
+*color9:       #c0392b
+*.color1:      #c0392b
+*.color9:      #c0392b
+
+*color3:       #f6fc82
+*color11:      #f6fc82
+*.color3:      #f6fc82
+*.color11:     #f6fc82
+
+*color2:       #42f587
+*color10:      #42f587
+*.color2:      #42f587
+*.color10:     #42f587
+

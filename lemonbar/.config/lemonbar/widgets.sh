@@ -27,9 +27,9 @@ get_ws() {
     desktop_names=($desks)
     string=""
     for i in "${!desktop_names[@]}"; do 
-      string+="%{B$color4 F$color0 A:xdotool set_desktop $i:}"
+      string+="%{B$color5 F$color0 A:xdotool set_desktop $i:}"
       if [[ "$((current_desktop))" == "$i" ]]; then
-        string+="%{B$color4 F$color7}"
+        string+="%{B$color5 F$color7}"
       fi
       string+=" ${desktop_names[$i]}%{A B- F-}"
     done
@@ -42,7 +42,7 @@ get_ws() {
 get_window() {
   while :; do
 	  window_title=$(echo -n "$(xdotool getwindowfocus getwindowname)"  | 
-      awk -v len=56 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }')
+      awk -v l=61 '{if (length($0) > l) $0=substr($0, 1, l-3) "...";print;}')
     echo "WIN%{A:dmenu_windows:}  $window_title %{A}" # f2d0
     sleep 3
   done
@@ -114,7 +114,11 @@ volume() {
 
 power_icon() {
   while :; do
-    echo "POW%{A:dmenu_logout:} 襤 %{A}" # f924 
+    string=" 襤"    # f924 
+    if [ "$SHOW_USER" = true ] ; then
+      string+=$(whoami)
+    fi
+    echo "POW%{A:dmenu_logout:} $string  %{A}"
     sleep 3
   done
 }

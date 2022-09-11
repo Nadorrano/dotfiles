@@ -132,6 +132,8 @@ nmap gc <Plug>(coc-git-commit)
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>z :call CocAction('diagnosticNext')<cr>
+nmap <silent> <leader>x :call CocAction('diagnosticPrevious')<cr>
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source "$HOME/.cache/wal/colors.sh"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
 
-dmenu_run -l 20 -c -bw 5 -nb $color0 -nf $color1 -sb $color2 -sf $color7
+dmenu_run -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}" 
 
 

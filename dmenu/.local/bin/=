@@ -15,34 +15,28 @@ usage() {
     = c(2)
     The answer can be used for further calculations
     The expression may need quotation marks if
-    launched outside of Rofi/dmenu"
+    launched outside of dmenu.
+
+    NOTE: modified to work only with dmenu"
     exit
 }
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
 
 case $1 in
     -h|--help) usage ;;
 esac
 
-# Path to menu application
-if [[ -n $(command -v rofi) ]]; then
-    menu="$(command -v rofi) -dmenu"
-elif [[ -n $(command -v dmenu) ]]; then
-    menu="$(command -v dmenu)"
-else
-    echo >&2 "Rofi or dmenu not found"
-    exit
-fi
-menu=/usr/bin/dmenu
-answer=$(echo "$@" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+answer=$(echo "$@" | bc -l | sed 's/\.0*$//')
 
 action=$(echo -e "Copy to clipboard\nClear\nClose" |
-$menu -p "= $answer")
+dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}" -p "= $answer")
 
 case $action in
     "Clear") $0 ;;
     "Copy to clipboard") echo -n "$answer" | xclip ;;
     "Close") ;;
     "") ;;
-    *) $0 "$answer $action" ;;
+    *) $0 "$answer" "$action";;
 esac
 

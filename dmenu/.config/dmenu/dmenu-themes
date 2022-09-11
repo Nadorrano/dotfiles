@@ -6,7 +6,7 @@
 
 source "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
 
-DMENU_WAL_THEME=(-nb $color0 -nf $color15 -sb $color1 -sf $color0 -fn "FantasqueSansMono Nerd Font:size=10")
+DMENU_WAL_THEME=(-nb $color0 -nf $color15 -sb $color1 -sf $color0 -fn  "FantasqueSansMono Nerd Font:size=10")
 DMENU_CENTER=(-l 20 -c -bw 4)
 DMENU_BAR=(-h 18)
 

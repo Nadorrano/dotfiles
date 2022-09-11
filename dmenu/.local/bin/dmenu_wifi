@@ -7,14 +7,16 @@
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
 
-choice=$(nmcli -f BARS,SECURITY,SSID device wifi list          | # show networks
-         awk '(NR>1) {$2=="--"?$2="  ":$2="  "; print}'      | # format input
-         dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}" | # dmenu command
-         awk '{$1=$2=""; print}')                                # format output
+choice=$(
+  nmcli -t -f IN-USE,BARS,SECURITY,SSID device wifi list                  |
+  awk -F ":" '{$3=="--"?$3="  ":$3="  ";$1=="*"?$1=" ":$1="  ";print}' |
+  dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}"                   |
+  awk '{$1=$2=$3="";print}'
+)
 
 if [[ ! -z "$choice" ]] ; then
 
-  nmcli dev wifi connect "$choice"                               # connect
+  nmcli dev wifi connect "$choice"
 
   if [[ "$?" > 0 ]] ; then
     notify-send "Non è stato possibile connettersi"

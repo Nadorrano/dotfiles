@@ -23,10 +23,11 @@ pkill lemonbar
 SHOW_VOLUME_LABEL=true
 SHOW_BATTERY_LABEL=true
 SHOW_NETWORK_LABEL=true
+SHOW_USER=true
 
 # fonts
-f1="Meslo LG M:size=9"
-f2="OverpassMono Nerd Font:size=9.5"
+font1="Meslo LG M:size=9"
+font2="OverpassMono Nerd Font:size=9.5"
 
 # powerbar symbols
 righthard=""
@@ -72,8 +73,8 @@ panel_builder() {
         pow="${data#???}"
         ;;
     esac
-    string="%{l B$color2 F$color7}${men}%{RB$color4}$righthard"
-    string+="${wsp}%{F$color4 B$color0}$righthard"
+    string="%{l B$color2 F$color7}${men}%{RB$color5}$righthard"
+    string+="${wsp}%{F$color5 B$color0}$righthard"
     string+="%{B$color0 F$color7}${win}"
     string+="%{r F$color5}$lefthard%{RF$color0}${net}"
     string+="%{F$color2}$lefthard%{RF$color0}${vol}"
@@ -97,8 +98,8 @@ calendar    >  "$PANEL_FIFO"  &
 clock       >  "$PANEL_FIFO"  &
 
 # launch lemonbar
-panel_builder < "$PANEL_FIFO" | lemonbar -g x18 -p -a 20            \
-                                         -f "${f1}" -f "${f2}"      \
-                                         -B "$color0" -F "$color4"  |
+panel_builder < "$PANEL_FIFO" | lemonbar -g x18 -p -a 20                \
+                                         -f "${font1}" -f "${font2}"    \
+                                         -B "${color0}" -F "${color4}"  |
                                          sh > /dev/null & 
 

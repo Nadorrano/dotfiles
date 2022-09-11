@@ -10,11 +10,11 @@ resourcesdir=$HOME/.Xresources.d
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-   	xrdb -merge $sysresources
+   	xrdb -merge "$sysresources"
 fi
 
 if [ -f $sysmodmap ]; then
-	xmodmap $sysmodmap
+	xmodmap "$sysmodmap"
 fi
 
 if [ -f "$userresources" ]; then
@@ -22,9 +22,9 @@ if [ -f "$userresources" ]; then
 fi
 
 if [ -d "$resourcesdir" ]; then
-  for filename in $resourcesdir/*.Xresources
+  for filename in "$resourcesdir"/*.Xresources
   do
-    xrdb -merge $filename
+    xrdb -merge "$filename"
   done
 fi
 

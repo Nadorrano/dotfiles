@@ -12,14 +12,13 @@ declare -A apps
 for path in {/usr/share/applications,$HOME/.local/share/applications}/*.desktop
 do
   name=$(grep -oP '^Name=\K.+(?=$)' "$path")
-  cmd=$(grep -oP '^Exec=\K.+(?=$)' "$path")
-  apps[$name]=$cmd
+  apps[$name]=$(basename "$path")
 done
 
 choice=$(IFS=$'\n'; echo "${!apps[*]}"                          |
-         dmenu -i "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
+         dmenu -i -p " " "${DMENU_CENTER[@]}" "${DMENU_WAL_THEME[@]}")
 
-[[ -z "$choice" ]] || exec "${apps[$choice]}"
+[[ "$choice" ]] && gtk-launch "${apps[$choice]}"
 
 unset apps
 

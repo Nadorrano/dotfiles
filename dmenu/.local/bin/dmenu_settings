@@ -7,12 +7,15 @@
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenu-themes"
 
-choice=$(echo -e "Cambia wallpaper\nCambia tema\nEsci"          | 
+choice=$(echo -e "App\nCambia wallpaper\nCambia tema\nComandi\nCalcolatrice\nEsci"   | 
          dmenu -i "${DMENU_BAR[@]}" "${DMENU_WAL_THEME[@]}")
 
 case $choice in
-  "Cambia wallpaper") exec change_wallpaper;;
-  "Cambia tema") exec change_wallpaper -t;;
+  "App") dmenu_desktop;;
+  "Cambia wallpaper") change_wallpaper;;
+  "Cambia tema") change_wallpaper -t;;
+  "Comandi") dmenu_launcher;;
+  "Calcolatrice") =;;
   "Esci") ;;
   *) ;;
 esac
