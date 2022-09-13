@@ -3,11 +3,7 @@
 #
 
 # zsh config directory
-if [ -z "$XDG_CONFIG_HOME" ]; then
-    export ZDOTDIR="$HOME/.config/zsh"
-else 
-    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-fi
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES="$HOME/.dotfiles"
@@ -20,7 +16,7 @@ export PATH
 export EDITOR="vim"
 export PAGER="less"
 
-# Syntax highlighting with package 'highlight'
+# Syntax highlighting
 export HIGHLIGHT_STYLE=zenburn
 
 # Load secret environment variables in ~/.localrc. This means they'll stay out

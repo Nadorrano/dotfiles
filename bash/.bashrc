@@ -1,27 +1,44 @@
 #!/usr/bin/env bash
-#
-# ~/.bashrc
+
+#      _               _
+#     | |__   __ _ ___| |__  _ __ ___
+#     | '_ \ / _` / __| '_ \| '__/ __|
+#    _| |_) | (_| \__ \ | | | | | (__
+#   (_)_.__/ \__,_|___/_| |_|_|  \___|
 #
 
-export EDITOR="vim"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
  
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+export EDITOR="vim"
+
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
 shopt -s checkwinsize
 
-shopt -s cdspell # autocorrects cd misspellings
+# Autocorrects cd misspellings
+shopt -s cdspell
 
-# prompt style
-#PS1='[\u@\h \W]\$ '  # To leave the default one
+# Command-not-found for bash (need package 'pkgfile')
+[[ -f "/usr/share/doc/pkgfile/command-not-found.bash" ]] && 
+  source "/usr/share/doc/pkgfile/command-not-found.bash"
 
-# Command-not-found for bash 
-source /usr/share/doc/pkgfile/command-not-found.bash
+#
+# History
+#
 
-# bash non-repeating history
-export HISTCONTROL=ignoreboth:erasedups
+# History search
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/bash_history"
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+# non-repeating history
+HISTCONTROL=ignoreboth
 
 #
 # Functions
@@ -34,6 +51,9 @@ done
 #
 # Autocompletion
 #
+
+[[ -f "/usr/share/bash-completion/bash_completion" ]] && 
+  source "/usr/share/bash-completion/bash_completion"
 
 bind "set completion-ignore-case on" # Ignore case in completion
 
@@ -55,11 +75,13 @@ alias grep='grep --color'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# Launche default editor
+# Launch default editor
 alias e='$EDITOR'
 
 # Directory navigation aliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+alias :q='exit'
 

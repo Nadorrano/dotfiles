@@ -1,5 +1,10 @@
-#
-# key mapping for zsh
+#             _
+#     _______| |__  _ __ ___
+#    |_  / __| '_ \| '__/ __|
+#   _ / /\__ \ | | | | | (__
+#  (_)___|___/_| |_|_|  \___|
+#  
+#  Keybindings
 #
 
 # vim-like keybindings
@@ -55,7 +60,7 @@ bindkey "^[Od" backward-word
 bindkey "^[Oc" forward-word
 
 
-# Enable Ctrl-x-e to edit command line
+# Enable edit command line
 autoload -U edit-command-line
 zle -N edit-command-line
 # Emacs style

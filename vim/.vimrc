@@ -76,7 +76,10 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 " Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee %
+cnoremap w!! %!sudo tee > /dev/null %
+"Mapping to select the last-changed text
+noremap gV `[v`]
+
 " }}}
 " Plugins {{{
 " Indent lines
@@ -254,11 +257,13 @@ augroup configgroup
    autocmd VimEnter * highlight clear SignColumn
    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h,*.css,*.html,*.rs
                            \ :call <SID>StripTrailingWhitespaces()
+   autocmd BufRead * call SetWorkingDirectoryGit()
    autocmd BufEnter *.cls setlocal filetype=java
    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
 augroup END
 " }}}
 " Custom Functions {{{
+
 " Capture command output in new buffer
 command! -nargs=1 Capture new | r ! <args>
 command! -nargs=1 C Capture <args>
@@ -273,6 +278,7 @@ function ToAscii()
 endfunction
 command! Binary call ToBinary()
 command! Ascii call ToAscii()
+
 " Menu selection of some characters not working on my keyboard
 function Pars()
         set cmdheight=2
@@ -288,6 +294,7 @@ function Pars()
         echo
 endfunction
 imap <C-B> <C-O>:call Pars()<CR>
+
 " Strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
@@ -299,5 +306,30 @@ function! <SID>StripTrailingWhitespaces()
         let @/=_s
         call cursor(l, c)
 endfunction
+
+"Adapted from <http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/>
+
+" If in a Git repo, sets the working directory to its root,
+" or if not, to the directory of the current file.
+function! SetWorkingDirectoryGit()
+  " Default to the current file's directory (resolving symlinks.)
+  let current_file = expand('%:p')
+  if getftype(current_file) == 'link'
+    let current_file = resolve(current_file)
+  endif
+  exe ':lcd' . fnamemodify(current_file, ':h')
+
+  " Get the path to `.git` if we're inside a Git repo.
+  " Works both when inside a worktree, or inside an internal `.git` folder.
+  :silent let git_dir = system('git rev-parse --git-dir')[:-2]
+  " Check whether the command output starts with 'fatal'; if it does, we're not inside a Git repo.
+  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
+  " If we're inside a Git repo, change the working directory to its root.
+  if empty(is_not_git_dir)
+    " Expand path -> Remove trailing slash -> Remove trailing `.git`.
+    exe ':lcd' . fnamemodify(git_dir, ':p:h:h')
+  endif
+endfunction
+
 " }}}
 

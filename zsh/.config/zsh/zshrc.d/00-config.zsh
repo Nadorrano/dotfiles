@@ -1,5 +1,10 @@
-#
-# General configurations 
+#             _
+#     _______| |__  _ __ ___
+#    |_  / __| '_ \| '__/ __|
+#   _ / /\__ \ | | | | | (__
+#  (_)___|___/_| |_|_|  \___|
+#  
+#  General configuration
 #
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
@@ -10,15 +15,13 @@ then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-fdir="${XDG_DATA_HOME:-$HOME/.local/share}/functions"
-
 # Add the function folder to fpath
-fpath=( "${fdir}" "${fpath[@]}" )
+fpath=( "${XDG_DATA_HOME:-$HOME/.local/share}/functions" "${fpath[@]}" )
 
 # Load hook function
 autoload -Uz add-zsh-hook
 # Load custom functions
-autoload -U "${fdir}"/*(@,.:t)
+autoload -U "${XDG_DATA_HOME:-$HOME/.local/share}/functions"/*(@,.:t)
 
 # Set terminal window title
 function xterm_title_precmd () {
@@ -32,28 +35,29 @@ function xterm_title_precmd () {
 # Auto ls
 #add-zsh-hook -Uz chpwd (){ exa; }
 
-# Command not found hook for zsh (need package 'pkgfile')
-[[ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ]]   && 
-[[ -f "/usr/bin/pkgfile" ]]                               && 
+#
+# Plugins
+#
+
+# Command-not-found for zsh (it needs package 'pkgfile')
+[[ -r "/usr/share/doc/pkgfile/command-not-found.zsh" ]] && 
   source "/usr/share/doc/pkgfile/command-not-found.zsh"
 
 # Fish-like autosuggestion
-[[ -f "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]   && 
+[[ -r "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && 
   source "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Syntax highlighting
-[[ -f "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]   && 
+[[ -r "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]   && 
   source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # k for zsh
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/k/k.sh"
 
-#
-# Prompt
-#
+# Powerlevel10k prompt
 source "$ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+[[ ! -r ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 
 #
@@ -62,7 +66,7 @@ source "$ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history"
 HISTSIZE=10000
-SAVEHIST=10000
+SAVEHIST=$HISTSIZE
 
 # adds history incrementally and share it across sessions
 setopt SHARE_HISTORY
@@ -89,7 +93,7 @@ setopt IGNORE_EOF
 # Aliases 
 #
 
-alias reload!='source $ZDOTDIR/.zshrc'
+alias reload!="source $ZDOTDIR/.zshrc"
 
 # ls aliases
 alias ls='ls --color=auto' 
@@ -116,4 +120,14 @@ alias e='$EDITOR'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+alias :q='exit'
+alias mkdir='mkdir -p'
+alias ip='ip --color=auto --brief'
+alias diff='diff --color=auto'
+
+alias disappointed='echo -n " ಠ_ಠ " |tee /dev/tty| xclip -selection clipboard;'
+alias flip='echo -n "（╯°□°）╯ ┻━┻" |tee /dev/tty| xclip -selection clipboard;'
+alias shrug='echo -n "¯\_(ツ)_/¯" |tee /dev/tty| xclip -selection clipboard;'
+alias gr='cd "$(git rev-parse --show-superproject-working-tree --show-toplevel | head -n1)"'
 

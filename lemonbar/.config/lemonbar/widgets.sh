@@ -130,7 +130,7 @@ battery() {
     battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
     
     case "$battery_status" in
-      Charging)
+      "Charging")
 	      if [ $battery_percent -le "10" ]    ; then
 	    		icon="   " # f585
 	    	elif [ $battery_percent -le "25" ]  ; then
@@ -146,7 +146,7 @@ battery() {
           label="$battery_percent%%" # double % or lemonbar will complain
         fi
         ;;
-      Discharging)
+      "Discharging")
 	      if [ $battery_percent -le "10" ]    ; then
 	    		icon="  " # f579
 	    	elif [ $battery_percent -le "25" ]  ; then
@@ -160,7 +160,15 @@ battery() {
 	    	fi
         label="$battery_percent%%" # double % or lemonbar will complain
         ;;
-      Unknown|Full)
+      "Not charging")
+        icon="  "
+        label="$battery_percent%%" # double % or lemonbar will complain
+        ;;
+      "Unknown")
+        icon="  "
+        label="?"
+        ;;
+      "Full")
         icon="  "
         label="Carica"
         ;;

@@ -7,10 +7,13 @@
 
 
 # shortcut to this dotfiles path is $DOTFILES
-export DOTFILES=$HOME/.dotfiles
+export DOTFILES="$HOME/.dotfiles"
 
 # add ~/.local/bin to path
-PATH=$PATH:~/.local/bin
+PATH=$PATH:$HOME/.local/bin
+
+export EDITOR="vim"
+export PAGER="less"
 
 # Load secret environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but

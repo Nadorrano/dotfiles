@@ -1,0 +1,22 @@
+# Compress a file into multiple archive types
+
+function compress {
+  if [[ -z "$1" ]]; then
+    echo 'Usage: compress <archive.(7z|tar|tar.bz2|tar.gz|tgz|zip|rar)> <files>'
+  else
+    local file=$1
+    shift
+    case "$file" in
+      *.7z)       7z a "$file" "$*"             ;;
+      *.tar)      tar cf "$file" "$*"           ;;
+      *.tar.bz2)  tar cjf "$file" "$*"          ;;
+      *.tar.gz)   tar czf "$file" "$*"          ;;
+      *.tgz)      tar czf "$file" "$*"          ;;
+      *.zip)      zip "$file" "$*"              ;;
+      *.rar)      rar "$file" "$*"              ;;
+      *)          tar zcvf "$file.tar.gz" "$*"  ;;
+    esac
+  fi
+}
+
+# vim: ft=sh

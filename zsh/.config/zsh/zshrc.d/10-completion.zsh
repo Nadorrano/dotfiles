@@ -1,5 +1,10 @@
-#
-# Autocompletion
+#             _
+#     _______| |__  _ __ ___
+#    |_  / __| '_ \| '__/ __|
+#   _ / /\__ \ | | | | | (__
+#  (_)___|___/_| |_|_|  \___|
+#  
+#  Completion 
 #
 
 # Add the completion folder to fpath
