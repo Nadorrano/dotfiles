@@ -44,3 +44,6 @@
 [submodule "zsh/.config/zsh/plugins/k"]
 	path = zsh/.config/zsh/plugins/k
 	url = https://github.com/supercrabtree/k
+[submodule "zsh/.config/zsh/plugins/zsh-autopair"]
+	path = zsh/.config/zsh/plugins/zsh-autopair
+	url = https://github.com/hlissner/zsh-autopair
