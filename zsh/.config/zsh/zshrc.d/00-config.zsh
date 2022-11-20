@@ -32,6 +32,9 @@ function xterm_title_precmd () {
 [[ "$TERM" == (alacritty*|gnome*|konsole*|putty*|rxvt*|screen*|st*|tmux*|xterm*) ]] &&
   add-zsh-hook -Uz precmd xterm_title_precmd
 
+# Colored correction prompt
+SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
 # Auto ls
 #add-zsh-hook -Uz chpwd (){ exa; }
 
@@ -51,6 +54,10 @@ function xterm_title_precmd () {
 [[ -r "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]   && 
   source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+# FZF completions
+[[ -r "$ZDOTDIR/plugins/fzf-zsh-completions/fzf-zsh-completions.plugin.zsh" ]]   && 
+  source "$ZDOTDIR/plugins/fzf-zsh-completions/fzf-zsh-completions.plugin.zsh"
+
 # k for zsh
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/k/k.sh"
 
@@ -58,6 +65,10 @@ source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/k/k.sh"
 source "$ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -r ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# Autopair
+source "$ZDOTDIR/plugins/zsh-autopair/autopair.zsh"
+autopair-init
 
 
 #
@@ -88,12 +99,23 @@ setopt CORRECT
 # Ignore EOF, Ctrl-D 
 setopt IGNORE_EOF
 
+# Change cursor shape for different vi modes.
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+zle -N zle-keymap-select
+
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
 
 #
 # Aliases 
 #
 
-alias reload!="source $ZDOTDIR/.zshrc"
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
 
 # ls aliases
 alias ls='ls --color=auto' 
@@ -121,13 +143,22 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+alias reload!="source $ZDOTDIR/.zshrc"
 alias :q='exit'
 alias mkdir='mkdir -p'
 alias ip='ip --color=auto --brief'
 alias diff='diff --color=auto'
+alias week='date +%V'
+alias df='df -h'
 
 alias disappointed='echo -n " ಠ_ಠ " |tee /dev/tty| xclip -selection clipboard;'
 alias flip='echo -n "（╯°□°）╯ ┻━┻" |tee /dev/tty| xclip -selection clipboard;'
 alias shrug='echo -n "¯\_(ツ)_/¯" |tee /dev/tty| xclip -selection clipboard;'
+
+# git
+alias ga='git add'
+alias gst='git status'
+alias gd='git diff'
+alias gl='git log'
 alias gr='cd "$(git rev-parse --show-superproject-working-tree --show-toplevel | head -n1)"'
 

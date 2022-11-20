@@ -1,4 +1,4 @@
-# FZF completion, trigger them using '**'
+# FZF completions
 [ -r "/usr/share/fzf/completion.zsh" ] && source "/usr/share/fzf/completion.zsh"
 
 # FZF keybindings
