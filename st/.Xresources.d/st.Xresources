@@ -5,7 +5,7 @@
 // ===========================  //
 
 // Colors
-st.font: FantasqueSansMono Nerd Font:pixelsize=14:antialias=true
+st.font: FantasqueSansMono Nerd Font:style=Bold:pixelsize=14:antialias=true
 urxvt*foreground:      #ffffff
 st.background: #cccccc
 st.foreground: #ff0000
