@@ -5,5 +5,7 @@
     "coc-pairs": ">=1.3.2",
     "coc-pyright": ">=1.1.243",
     "coc-rust-analyzer": ">=0.62.0"
-  }
+  },
+  "disabled": [],
+  "locked": []
 }
