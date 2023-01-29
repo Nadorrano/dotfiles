@@ -13,27 +13,50 @@
 
 pkill lemonbar
 
-# load wal colors
-. ~/.cache/wal/colors.sh
+# ----------------------------------- #
+#                                     #
+#            Configuration            #
+#                                     #
+# ----------------------------------- #
 
-# load widgets
-. ~/.config/lemonbar/widgets.sh
-
-# config
+# show labels next to icons
 SHOW_VOLUME_LABEL=true
 SHOW_BATTERY_LABEL=true
 SHOW_NETWORK_LABEL=true
 SHOW_USER=true
 
 # fonts
-font1="Meslo LG M:size=9"
-font2="OverpassMono Nerd Font:size=9.5"
+font1="FantasqueSansMono Nerd Font:size=9.5"    # main font
+font2="xos4 Terminess Powerline:size=12"        # Powerline symbols font
 
-# powerbar symbols
-righthard=""
-rightsoft=""
-lefthard=""
-leftsoft=""
+# section separators
+righthard="%{T2}%{T-} "
+rightsoft="%{T2}%{T-} "
+lefthard=" %{T2}%{T-}"
+leftsoft=" %{T2}%{T-}"
+
+WIDGET_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/lemonbar/widgets"
+
+
+# ----------------------------------- #
+#                                     #
+#                Init                 #
+#                                     #
+# ----------------------------------- #
+
+# load colors
+. "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
+
+# load widgets
+. "${WIDGET_DIR}"/app_menu.sh
+. "${WIDGET_DIR}"/workspace.sh
+. "${WIDGET_DIR}"/windows.sh
+. "${WIDGET_DIR}"/network.sh
+. "${WIDGET_DIR}"/sound.sh
+. "${WIDGET_DIR}"/battery.sh
+. "${WIDGET_DIR}"/calendar.sh
+. "${WIDGET_DIR}"/clock.sh
+. "${WIDGET_DIR}"/power_menu.sh
 
 # setup the FIFO
 PANEL_FIFO="/tmp/panel.fifo"
@@ -41,6 +64,13 @@ PANEL_FIFO="/tmp/panel.fifo"
 [[ -e "$PANEL_FIFO" ]] && rm "$PANEL_FIFO"
 
 mkfifo "$PANEL_FIFO"
+
+
+# ----------------------------------- #
+#                                     #
+#             Launch bar              #
+#                                     #
+# ----------------------------------- #
 
 panel_builder() {
   while read -r data; do
