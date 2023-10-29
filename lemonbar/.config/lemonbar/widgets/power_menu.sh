@@ -3,7 +3,7 @@
 
 power_icon() {
   while :; do
-    string=" 襤 "    # f924 
+    string=" 󰐥  "    # f0425 
     if [ "$SHOW_USER" = true ] ; then
       string+=$(whoami)
     fi

@@ -3,7 +3,7 @@
 
 clock() {
   while :; do
-    echo "TIM   $(date +'%H:%M')"        # f64f
+    echo "TIM 󰅐  $(date +'%H:%M')"        # f017
     sleep 10
   done
 }

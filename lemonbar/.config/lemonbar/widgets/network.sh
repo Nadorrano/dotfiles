@@ -8,14 +8,14 @@ network() {
     if iwconfig "$interface_up" >/dev/null 2>&1; then # at least one up
       network_id=$(/sbin/iwgetid -r)
       if [ -n "$network_id" ] ; then # wifi up
-        icon=" 直 "   # faa8
+        icon=" 󰖩  "   # f05a9
         label="$network_id"
       else # ethernet up
-        icon="   "   # f6ff
+        icon=" 󰈀  "   # f0200
         label="Ethernet"
       fi
     else
-      icon="   "     # f65a
+      icon=" 󰱟  "     # f0c9c
       label="Offline"
     fi
     if [ "$SHOW_NETWORK_LABEL" = true ] ; then

@@ -1,3 +1,3 @@
 " PHP specific settings
-setlocal tabstop=2 shiftwidth=2 expandtab
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4 nowrap
 

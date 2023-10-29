@@ -3,7 +3,7 @@
 
 calendar() {
   while :; do
-    echo "DAT   $(date +'%A %d %B %Y')"  # f5ed
+    echo -e "DAT 󰃮  $(date +'%A %d %B %Y')"  # f133
     sleep 10
   done
 }

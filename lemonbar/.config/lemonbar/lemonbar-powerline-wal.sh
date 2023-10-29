@@ -9,6 +9,10 @@
 #
 # Launcher
 #
+# Note: this script require lemonbar xft fork with ucs4 (32-bit) codepoint
+# support to fully show Nerd Font icons. A patched Nerd Font is of course
+# also required
+#
 
 
 pkill lemonbar
@@ -26,7 +30,7 @@ SHOW_NETWORK_LABEL=true
 SHOW_USER=true
 
 # fonts
-font1="FantasqueSansMono Nerd Font:size=9.5"    # main font
+font1="FantasqueSansM Nerd Font:size=9.5"       # main font
 font2="xos4 Terminess Powerline:size=12"        # Powerline symbols font
 
 # section separators

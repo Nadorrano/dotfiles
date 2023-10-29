@@ -8,45 +8,47 @@ battery() {
     
     case "$battery_status" in
       "Charging")
-	      if [ $battery_percent -le "10" ]    ; then
-	    		icon="   " # f585
-	    	elif [ $battery_percent -le "25" ]  ; then
-	    		icon="   " # f586
-	    	elif [ $battery_percent -le "50" ]  ; then
-	    		icon="   " # f587
-	    	elif [ $battery_percent -le "75" ]  ; then
-	    		icon="   " # f589
-	    	elif [ $battery_percent -le "100" ] ; then
-	    		icon="   " # f584
-	    	fi
+        if [ $battery_percent -le "10" ]    ; then
+          icon=" 󰢜  " # f089c
+        elif [ $battery_percent -le "25" ]  ; then
+          icon=" 󰂆  " # f0086
+        elif [ $battery_percent -le "50" ]  ; then
+          icon=" 󰢝  " # f089d
+        elif [ $battery_percent -le "75" ]  ; then
+          icon=" 󰢞  " # f089e
+        elif [ $battery_percent -le "100" ] ; then
+          icon=" 󰂅  " # f0085
+        fi
         if [ "$SHOW_BATTERY_LABEL" = true ] ; then
           label="$battery_percent%%" # double % or lemonbar will complain
         fi
         ;;
       "Discharging")
-	      if [ $battery_percent -le "10" ]    ; then
-	    		icon="  " # f579
-	    	elif [ $battery_percent -le "25" ]  ; then
-	    		icon="  " # f57b
-	    	elif [ $battery_percent -le "50" ]  ; then
-	    		icon="  " # f57d
-	    	elif [ $battery_percent -le "75" ]  ; then
-	    		icon="  " # f57f 
-	    	elif [ $battery_percent -le "100" ] ; then
-	    		icon="  " # f578
-	    	fi
-        label="$battery_percent%%" # double % or lemonbar will complain
+        if [ $battery_percent -le "10" ]    ; then
+          icon=" 󰁺 " # f007a
+        elif [ $battery_percent -le "25" ]  ; then
+          icon=" 󰁻 " # f007b
+        elif [ $battery_percent -le "50" ]  ; then
+          icon=" 󰁾 " # f007e
+        elif [ $battery_percent -le "75" ]  ; then
+          icon=" 󰁾 " # f0080
+        elif [ $battery_percent -le "100" ] ; then
+          icon=" 󰁹 " # f0079
+        fi
+        if [ "$SHOW_BATTERY_LABEL" = true ] ; then
+          label="$battery_percent%%" # double % or lemonbar will complain
+        fi
         ;;
       "Not charging")
-        icon="  "
+        icon=" 󱟨 " # f17e8
         label="$battery_percent%%" # double % or lemonbar will complain
         ;;
       "Unknown")
-        icon="  "
+        icon=" 󰂑 " # f0091
         label="?"
         ;;
       "Full")
-        icon="  "
+        icon=" 󰁹 " # f0079
         label="Carica"
         ;;
     esac

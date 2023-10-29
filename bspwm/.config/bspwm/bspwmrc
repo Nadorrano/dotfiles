@@ -13,7 +13,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 color0=$(xrdb -query | grep "color0:" | cut -f 2 | tail -n 1)
 color6=$(xrdb -query | grep "color6:" | cut -f 2 | tail -n 1)
 
-bspc monitor -d         ﱘ 
+bspc monitor -d "   " " 󰈹  " " 󰉋  " " 󰃣  " " 󰝚  " 
 
 bspc config border_width            2
 bspc config window_gap              12

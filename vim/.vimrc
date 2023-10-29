@@ -20,7 +20,6 @@ set tabstop=4 softtabstop=4 expandtab
 " UI Config {{{  
 colorscheme nord                    " set color scheme
 set termguicolors
-hi Normal guibg=#10171f
 set title                           " Set the title of the window
 set mouse=a                         " mouse support
 set encoding=utf-8                  " set encoding
@@ -260,6 +259,7 @@ augroup configgroup
    autocmd BufRead * call SetWorkingDirectoryGit()
    autocmd BufEnter *.cls setlocal filetype=java
    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+   autocmd BufReadPost *.svelte setlocal filetype=html
 augroup END
 " }}}
 " Custom Functions {{{

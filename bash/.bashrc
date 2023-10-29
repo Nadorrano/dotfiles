@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 #      _               _
 #     | |__   __ _ ___| |__  _ __ ___
@@ -10,9 +9,10 @@
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
- 
-export EDITOR="vim"
 
+# shortcut to this dotfiles path is $DOTFILES
+DOTFILES="$HOME/.dotfiles"
+ 
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
@@ -33,55 +33,43 @@ shopt -s cdspell
 # History search
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-
+# append to history file
+shopt -s histappend
+# setup file in the cache directory
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/bash_history"
+# size of history
 HISTSIZE=10000
-SAVEHIST=$HISTSIZE
+# size of history on disk
+HISTFILESIZE=$HISTSIZE
 # non-repeating history
 HISTCONTROL=ignoreboth
+# immediately save history
+PROMPT_COMMAND='history -a'
+# do not save these
+HISTIGNORE="history:ls:pwd:sudo rm *"
+
 
 #
 # Functions
 #
 
 for f in "${XDG_DATA_HOME:-$HOME/.local/share}/functions"/* ; do
-  source "$f"
+  . "$f"
 done
+
 
 #
 # Autocompletion
 #
 
-[[ -f "/usr/share/bash-completion/bash_completion" ]] && 
-  source "/usr/share/bash-completion/bash_completion"
+if [[ -f /usr/share/bash-completion/bash_completion ]]; then 
+  . /usr/share/bash-completion/bash_completion
+fi
 
 bind "set completion-ignore-case on" # Ignore case in completion
 
-#
-# Alias
-#
+# Reload the shell
 alias reload!="source $HOME/.bash_profile"
 
-# ls aliases
-alias ls='ls --color=auto' 
-alias la='ls -A' 
-alias ll='ls -GlFhA'
-
-# execute last command again, using sudo
-alias fuck='sudo $(fc -nl -1)'
-
-# colorized grep
-alias grep='grep --color'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-# Launch default editor
-alias e='$EDITOR'
-
-# Directory navigation aliases
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
-alias :q='exit'
+if [[ -f ~/.aliases ]]; then . ~/.aliases; fi
 

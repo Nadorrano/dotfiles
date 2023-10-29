@@ -9,7 +9,7 @@
 # If not running interactively, don't do anything
 [[ $- =~ i ]] || return
 
-for config_file in $ZDOTDIR/zshrc.d/*.zsh; do
-  source $config_file
+for config_file in "$ZDOTDIR"/zshrc.d/*.zsh; do
+  . "$config_file"
 done
 
