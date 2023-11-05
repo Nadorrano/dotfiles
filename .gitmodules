@@ -1,27 +1,6 @@
 [submodule "ranger/.config/ranger/plugins/ranger_devicons"]
 	path = ranger/.config/ranger/plugins/ranger_devicons
 	url = https://github.com/alexanderjeurissen/ranger_devicons
-[submodule "vim/.vim/pack/plugins/start/nerdtree"]
-	path = vim/.vim/pack/plugins/start/nerdtree
-	url = https://github.com/preservim/nerdtree
-[submodule "vim/.vim/pack/plugins/start/vim-css-color"]
-	path = vim/.vim/pack/plugins/start/vim-css-color
-	url = https://github.com/ap/vim-css-color
-[submodule "vim/.vim/pack/plugins/start/lightline.vim"]
-	path = vim/.vim/pack/plugins/start/lightline.vim
-	url = https://github.com/itchyny/lightline.vim
-[submodule "vim/.vim/pack/themes/gruvbox"]
-	path = vim/.vim/pack/themes/gruvbox
-	url = https://github.com/morhetz/gruvbox
-[submodule "vim/.vim/pack/plugins/start/vim-devicons"]
-	path = vim/.vim/pack/plugins/start/vim-devicons
-	url = https://github.com/ryanoasis/vim-devicons
-[submodule "vim/.vim/pack/themes/start/vim-hybrid"]
-	path = vim/.vim/pack/themes/start/vim-hybrid
-	url = https://github.com/w0ng/vim-hybrid
-[submodule "vim/.vim/pack/themes/start/gruvbox"]
-	path = vim/.vim/pack/themes/start/gruvbox
-	url = https://github.com/morhetz/gruvbox
 [submodule "zsh/.config/zsh/themes/powerlevel10k"]
 	path = zsh/.config/zsh/plugins/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
@@ -31,12 +10,6 @@
 [submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "vim/.vim/pack/themes/start/nord-vim"]
-	path = vim/.vim/pack/themes/start/nord-vim
-	url = https://github.com/arcticicestudio/nord-vim
-[submodule "vim/.vim/pack/plugins/start/indentLine"]
-	path = vim/.vim/pack/plugins/start/indentLine
-	url = https://github.com/Yggdroot/indentLine.git
 [submodule "zsh/.config/zsh/plugins/k"]
 	path = zsh/.config/zsh/plugins/k
 	url = https://github.com/supercrabtree/k
