@@ -3,8 +3,7 @@
 
 " Setup {{{
 set nocompatible        " This must be first
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
+" Set internal encoding
 set encoding=utf-8
 set hidden                          " TextEdit might fail if hidden is not set.
 " Some language servers have issues with backup files, see coc issue #649.
@@ -16,7 +15,7 @@ syntax enable                       " Highlight syntax
 filetype indent plugin on
 " Spaces and Tabs
 set tabstop=4 softtabstop=4 expandtab
- " }}}
+" }}}
 " UI Config {{{  
 colorscheme nord                    " set color scheme
 set termguicolors
@@ -99,56 +98,10 @@ autocmd FileType nerdtree nmap <buffer> <right> o
 autocmd FileType nerdtree nmap <buffer> l o 
 autocmd FileType nerdtree nmap <buffer> <left> x 
 autocmd FileType nerdtree nmap <buffer> h x
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" navigate chunks of current buffer
-nmap gp <Plug>(coc-git-prevchunk)
-nmap gn <Plug>(coc-git-nextchunk)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
-" show commit contains current position
-nmap gc <Plug>(coc-git-commit)
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-nmap <silent> <leader>z :call CocAction('diagnosticNext')<cr>
-nmap <silent> <leader>x :call CocAction('diagnosticPrevious')<cr>
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-
 " Lightline
 " in some cases lightline does not show up at startup, this fix it
 autocmd VimEnter * call lightline#update()
 
-autocmd User CocDiagnosticChange call lightline#update()
 
 let g:lightline = {
       \ 'colorscheme': 'nord',
@@ -160,39 +113,15 @@ let g:lightline = {
       \   'vim_logo'            : " ",
       \ },
       \ 'component_type': {
-      \   'coc_info'            : 'tabsel',  
       \   'git_info'            : 'middle',  
       \ },
       \ 'component_expand': {
-      \   'coc_info'            : 'LightlineCocInfo',
-      \   'git_info'            : 'LightlineGitInfo',
       \ },
       \ 'tabline' : {
       \   'left': [ [ 'vim_logo', 'tabs' ] ],
-      \   'right': [ [ 'coc_info' ], [ 'git_info' ], ],
       \   },
       \ }
 
-function! s:lightline_coc_diagnostic(kind, sign) abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) || get(info, a:kind, 0) == 0
-    return ''
-  else 
-    return printf('%d%s', info[a:kind], a:sign)
-  endif
-endfunction
-
-function! LightlineCocInfo() abort
-  let my_string = s:lightline_coc_diagnostic('error', ' ')
-  let my_string = my_string . s:lightline_coc_diagnostic('warning', ' ')
-  let my_string = my_string . s:lightline_coc_diagnostic('information', ' ')
-  let my_string = my_string . s:lightline_coc_diagnostic('hint', ' ')
-  return my_string
-endfunction
-
-function! LightlineGitInfo() abort
-  return get(g:, 'coc_git_status', '')
-endfunction
 
 let g:lightline.separator = { 'left': "", 'right': "" }
 let g:lightline.subseparator = { 'left': "", 'right': "" }
@@ -211,19 +140,19 @@ let g:fzf_preview_window = ['right:50%,border-left', 'ctrl-/']      " Preview bu
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'Normal'} }    " Fzf window layout configs for default search
 
 let g:fzf_colors = {
-            \ 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'], 
-            \ 'hl':      ['fg', 'Comment'], 
-            \ 'fg+':     ['fg', 'IncSearch', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'Normal'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Normal'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+      \ 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'], 
+      \ 'hl':      ['fg', 'Comment'], 
+      \ 'fg+':     ['fg', 'IncSearch', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'Normal'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Normal'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 " LS command
 command! -complete=dir -nargs=? LS call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}))
@@ -239,7 +168,7 @@ set smartcase           " Case sensitive search with uppercase search terms
 " alias to turn off search highlight
 nnoremap <A-Space> :nohlsearch<CR>
 " }}}
- " Folding {{{
+" Folding {{{
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
@@ -252,14 +181,14 @@ nnoremap <space> za
 set modelines=1
 " autogroups
 augroup configgroup
-   autocmd!
-   autocmd VimEnter * highlight clear SignColumn
-   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h,*.css,*.html,*.rs
-                           \ :call <SID>StripTrailingWhitespaces()
-   autocmd BufRead * call SetWorkingDirectoryGit()
-   autocmd BufEnter *.cls setlocal filetype=java
-   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-   autocmd BufReadPost *.svelte setlocal filetype=html
+  autocmd!
+  autocmd VimEnter * highlight clear SignColumn
+  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h,*.css,*.html,*.rs,*.ts
+        \ :call <SID>StripTrailingWhitespaces()
+  autocmd BufRead * call SetWorkingDirectoryGit()
+  autocmd BufEnter *.cls setlocal filetype=java
+  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+  autocmd BufReadPost *.svelte setlocal filetype=html
 augroup END
 " }}}
 " Custom Functions {{{
@@ -269,42 +198,42 @@ command! -nargs=1 Capture new | r ! <args>
 command! -nargs=1 C Capture <args>
 " Convert binary file to hexdump
 function ToBinary()
-        %!xxd
-        set ft=xxd
+  %!xxd
+  set ft=xxd
 endfunction
 function ToAscii()
-        %!xxd -r
-        set ft=
+  %!xxd -r
+  set ft=
 endfunction
 command! Binary call ToBinary()
 command! Ascii call ToAscii()
 
 " Menu selection of some characters not working on my keyboard
 function Pars()
-        set cmdheight=2
-        echohl Title | echom 'Scelte:' | echohl None
-        echo '1. ()    2. &'
-        let choice = getchar()
-        if choice == 49 
-                normal i()
-        elseif choice == 50 
-                normal i&
-        endif
-        set cmdheight=1
-        echo
+  set cmdheight=2
+  echohl Title | echom 'Scelte:' | echohl None
+  echo '1. ()    2. &'
+  let choice = getchar()
+  if choice == 49 
+    normal i()
+  elseif choice == 50 
+    normal i&
+  endif
+  set cmdheight=1
+  echo
 endfunction
 imap <C-B> <C-O>:call Pars()<CR>
 
 " Strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
-        " save last search & cursor position
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        %s/\s\+$//e
-        let @/=_s
-        call cursor(l, c)
+  " save last search & cursor position
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 "Adapted from <http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/>
