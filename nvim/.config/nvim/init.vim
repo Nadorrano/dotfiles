@@ -2,8 +2,17 @@
 set runtimepath+=~/.vim,~/.vim/after
 set packpath+=~/.vim
 
-" Load init.lua
-lua require('lsp_config')
-
 " Load Vim settings
 source ~/.vimrc
+
+" Load nvim-cmp settings
+lua require('config/nvim-cmp')
+
+" Load lsp settings
+lua require('config/lsp')
+
+" Load treesitter settings
+lua require('config/treesitter')
+
+lua require('kanagawa').setup({ theme = "wave"})
+

@@ -23,8 +23,9 @@ shopt -s checkwinsize
 shopt -s cdspell
 
 # Command-not-found for bash (need package 'pkgfile')
-[[ -f "/usr/share/doc/pkgfile/command-not-found.bash" ]] && 
+if [[ -f "/usr/share/doc/pkgfile/command-not-found.bash" ]]; then 
   source "/usr/share/doc/pkgfile/command-not-found.bash"
+fi
 
 #
 # History
@@ -67,6 +68,11 @@ if [[ -f /usr/share/bash-completion/bash_completion ]]; then
 fi
 
 bind "set completion-ignore-case on" # Ignore case in completion
+
+
+#
+# Aliases
+#
 
 # Reload the shell
 alias reload!="source $HOME/.bash_profile"

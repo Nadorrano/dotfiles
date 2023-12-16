@@ -1,14 +1,24 @@
 -- LSP configuration
 
 local lspconfig = require('lspconfig')
+-- Set up completion.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Python language server
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup {
+  capabilities = capabilities
+}
 -- Typescript language server
-lspconfig.tsserver.setup {}
+lspconfig.tsserver.setup {
+  capabilities = capabilities
+}
 -- PHP language server
-lspconfig.phpactor.setup {}
+lspconfig.phpactor.setup {
+  capabilities = capabilities
+}
 -- Svelte language server
-lspconfig.svelte.setup {}
+lspconfig.svelte.setup {
+  capabilities = capabilities
+}
 
 
 -- Global mappings.

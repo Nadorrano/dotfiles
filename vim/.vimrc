@@ -23,27 +23,57 @@ call plug#begin('~/.local/share/vim/plugged')
 " Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+
+" Generic plugins
 Plug 'preservim/nerdtree'
 Plug 'ap/vim-css-color'
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
-Plug 'nordtheme/vim'
+Plug 'airblade/vim-gitgutter'
+
+if has('nvim')
+  " LSP and completion plugins
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+
+  " For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+
+  " Treesitter
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  " Themes
+  Plug 'rebelot/kanagawa.nvim'
+  Plug 'shaunsingh/nord.nvim'
+else
+  " Themes
+  Plug 'morhetz/gruvbox'
+  Plug 'nordtheme/vim'
+endif
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
 " You can revert the settings after the call like so:
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
-
 " }}}
 " Syntax {{{  
 " Spaces and Tabs
 set tabstop=4 softtabstop=4 expandtab
 " }}}
 " UI Config {{{  
-colorscheme nord                    " set color scheme
+if has('nvim')
+  colorscheme kanagawa                 " set color scheme
+else
+  colorscheme nord                 " set color scheme
+endif
+set background=dark                 " or light if you want light mode
 set termguicolors
 set title                           " Set the title of the window
 set mouse=a                         " mouse support
@@ -116,9 +146,13 @@ let g:NERDTreeIgnore = ['.git', 'node_modules', '__pycache__']      " Things to 
 " map nerdtree plugin to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 " Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endifk
-" Auto open NERDTree when running vim with no files
-autocmd VimEnter * if !argc() | NERDTree | endif
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if winnr() == winnr('h') && bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 " Navigation using arrows and h,l
 autocmd FileType nerdtree nmap <buffer> <right> o 
 autocmd FileType nerdtree nmap <buffer> l o 
@@ -212,9 +246,7 @@ augroup configgroup
   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.c,*.h,*.css,*.html,*.rs,*.ts
         \ :call <SID>StripTrailingWhitespaces()
   autocmd BufRead * call SetWorkingDirectoryGit()
-  autocmd BufEnter *.cls setlocal filetype=java
   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-  autocmd BufReadPost *.svelte setlocal filetype=html
 augroup END
 " }}}
 " Custom Functions {{{
