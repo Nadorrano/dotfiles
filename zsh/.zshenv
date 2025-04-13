@@ -24,3 +24,11 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 # Syntax highlighting
 export HIGHLIGHT_STYLE=zenburn
 
+# Source drop-in env vars files from ~/.config/env directory 
+env_dir="${XDG_CONFIG_HOME:-$HOME/.config}/env"
+if [[ -d "$env_dir" ]]; then
+  for env_file in "$env_dir"/*.sh; do
+    [ -r "$env_file" ] && source "$env_file"
+  done
+fi
+

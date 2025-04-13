@@ -117,6 +117,11 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 # Alias to reload the shell
 alias reload!="source $ZDOTDIR/.zshrc"
 
-# Load aliases from file
-if [[ -f ~/.aliases ]]; then . ~/.aliases; fi
+# Load aliases from the alias directory
+alias_dir="${XDG_DATA_HOME:-$HOME/.local/share}/aliases"
+if [[ -d "$alias_dir" ]]; then
+  for alias_file in "$alias_dir"/*.sh; do
+    [ -r "$alias_file" ] && source "$alias_file"
+  done
+fi
 

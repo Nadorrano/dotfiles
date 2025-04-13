@@ -12,9 +12,6 @@ alias ll='ls -GlAh'
 # List only directories
 alias lsd='ls -DFl'
 
-# visudo with vim
-alias visudo='EDITOR=vim visudo'
-
 # execute last command again, using sudo
 alias fuck='sudo $(fc -nl -1)'
 
