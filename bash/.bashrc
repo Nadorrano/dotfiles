@@ -79,3 +79,9 @@ alias reload!="source $HOME/.bash_profile"
 
 if [[ -f ~/.aliases ]]; then . ~/.aliases; fi
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export STM32_PRG_PATH=/home/fonta/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin

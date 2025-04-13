@@ -26,19 +26,23 @@ call plug#begin('~/.local/share/vim/plugged')
 
 " Generic plugins
 Plug 'preservim/nerdtree'
-Plug 'ap/vim-css-color'
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'sainnhe/gruvbox-material'
 
 if has('nvim')
+  Plug 'norcalli/nvim-colorizer.lua'
+
   " LSP and completion plugins
+  Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'm-pilia/vim-ccls'
 
   " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
@@ -47,11 +51,15 @@ if has('nvim')
   " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+  " Vimspector
+  Plug 'puremourning/vimspector'
+
   " Themes
   Plug 'rebelot/kanagawa.nvim'
   Plug 'shaunsingh/nord.nvim'
 else
-  " Themes
+  Plug 'ap/vim-css-color'
+  " Theme
   Plug 'morhetz/gruvbox'
   Plug 'nordtheme/vim'
 endif
@@ -70,7 +78,9 @@ set tabstop=4 softtabstop=4 expandtab
 " UI Config {{{  
 if has('nvim')
   colorscheme kanagawa                 " set color scheme
+  " colorscheme gruvbox-material      " set color scheme
 else
+  " colorscheme gruvbox-material      " set color scheme
   colorscheme nord                 " set color scheme
 endif
 set background=dark                 " or light if you want light mode
@@ -87,9 +97,6 @@ set laststatus=2                    " Always display the statusline
 set showtabline=2                   " Always display the tabline
 set noshowmode                      " Hide the default mode text
 set backspace=indent,eol,start      " Backspace go to earlier line 
-" enable truecolors in st
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " Vim loves to redraw the screen during things it probably doesn't need
 " to, like in the middle of macros. This tells Vim not to bother redrawing
 " during these scenarios, leading to faster macros.
@@ -138,6 +145,8 @@ noremap gV `[v`]
 " Plugins {{{
 " Indent lines
 let g:indentLine_char = ''
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
 " NERDTree
 let NERDTreeShowHidden = 1
 let g:NERDTreeDirArrowExpandable = '► '

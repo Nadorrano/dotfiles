@@ -14,5 +14,8 @@ lua require('config/lsp')
 " Load treesitter settings
 lua require('config/treesitter')
 
+" Init colorizer plugin
+lua require'colorizer'.setup()
+
 lua require('kanagawa').setup({ theme = "wave"})
 

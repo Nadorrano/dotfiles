@@ -19,6 +19,15 @@ lspconfig.phpactor.setup {
 lspconfig.svelte.setup {
   capabilities = capabilities
 }
+-- rust-analyzer language server
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities
+}
+
+-- ccls language server
+lspconfig.ccls.setup {
+  capabilities = capabilities
+}
 
 
 -- Global mappings.
@@ -63,7 +72,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Diagnostic sign icons and colors
 vim.fn.sign_define('DiagnosticSignError', { text='󰅜 ', texthl='DiagnosticSignError'   })
-vim.fn.sign_define('DiagnosticSignHint',  { text='󰋼', texthl='DiagnosticSignDefault' })
+vim.fn.sign_define('DiagnosticSignHint',  { text='󰋼 ', texthl='DiagnosticSignDefault' })
 vim.fn.sign_define('DiagnosticSignInfo',  { text='󰋼 ', texthl='DiagnosticSignDefault' })
 vim.fn.sign_define('DiagnosticSignWarn',  { text='󰀩 ', texthl='DiagnosticSignWarn'    })
 
