@@ -1,0 +1,164 @@
+/**
+ * 
+ * Waybar config
+ *
+ */
+
+
+ {
+
+    /*----------Global Properties-------------*/
+    "layer":                "top",
+    "position":             "top",
+    "spacing":              0,
+    "height":               35,
+    "margin-top":           0,
+    "margin-right":         0,
+    "margin-bottom":        0,
+    "margin-left":          0,
+
+    /*----------Modules Left----------------*/
+    "modules-left": [
+        "custom/launcher",
+        "group/hardware",
+    ],
+
+    /*----------Modules Center--------------*/
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+
+    /*----------Modules Center--------------*/
+    "modules-right": [
+        //"custom/weather",
+        "group/settings",
+        "clock#date",
+        "clock",
+        "custom/power"
+    ],
+
+    /*----------Hyprland Workspace----------*/
+    "hyprland/workspaces": {
+        "format":               "",
+        "format-icons": {
+            "active":           " ",
+            "default":          " ",
+            "urgent":           " "
+        },
+        "on-click":             "activate",
+        "on-scroll-down":       "hyprctl dispatch workspace e+1",
+        "on-scroll-up":         "hyprctl dispatch workspace e-1"
+    },
+
+    /*-----------Weather---------------*/
+    "custom/weather": {
+        "format":               "{}",
+        "format-alt":           " {alt}",
+        "format-alt-click":     "click",
+        "interval":             3600,
+        "return-type":          "json",
+        "exec":                 "$HOME/.config/waybar/scripts/Weather.sh",
+        "exec-if":              "ping wttr.in -c1",
+        "tooltip":              true
+    },
+
+    /*---------------Launcher-------------*/
+    "custom/launcher": {
+        "format":               "󰣇",
+        "tooltip":              false,
+        "on-click":             "wofi --show drun -a -p '... ' -I --width=400"
+    },
+
+    "custom/power": {
+        "format":               "",
+        "tooltip":              false,
+        "on-click":             "~/.config/wofi/powermenu/powermenu.sh"
+    },
+
+    /*-----------Cpu, Memory, Temperature, Idle-inhibitor------*/
+    "cpu": {
+        "format":               "󰻠 ",
+        "tooltip":              true
+    },
+
+    "memory": {
+        "format":               " ",
+        "interval":             30, // seconds
+        "tooltip-format":       "󰾆  {used:0.1f}GB/{total:0.1f}GB ({percentage}%)"
+    },
+
+    "temperature": {
+        "critical-threshold":   80, // °C
+        "format":               ""
+    },
+
+    "idle_inhibitor": {
+        "format":               "{icon}",
+        "format-icons": {
+            "activated":        " " ,
+            "deactivated":      " " 
+        }
+    },
+
+    /*---------------Hardware------------------*/
+    "group/hardware": {
+        "orientation":          "horizontal",
+        "modules": [
+            "cpu",
+            "memory",
+            "temperature",
+        ]
+    },
+
+    /*----------------------------------Audio---------------------------------*/
+    "wireplumber": {
+        "format":               "{icon}",
+        "format-muted":         " ",
+        "on-click":             "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "format-icons":         [ " ", " ", " " ],
+        "tooltip-format":       "{node_name} {volume}%"
+    },
+
+    /*---------------------------------Network--------------------------------*/
+    "network": {
+        "format-disconnected":  "󰅛 ",
+        "format-ethernet":      "󰈀 ",
+        "format-linked":        "{ifname} (No IP)",
+        "format-wifi":          " ",
+        "tooltip-format":       "Connected to {essid} {ifname} via {gwaddr} ({signalStrength}%)"
+    },
+
+    /*----------------------------------Tray----------------------------------*/
+    "tray": {
+        "icon-size":            20,
+        "spacing":              8
+    },
+
+    /*--------------------------------Settings--------------------------------*/
+    "group/settings": {
+        "orientation":          "horizontal",
+        "modules": [
+            "tray",
+            "idle_inhibitor",
+            "wireplumber",
+            "network",
+        ]
+    },
+
+    /*----------------------------------Clock---------------------------------*/
+    "clock": {
+        "format":               "{:%H:%M}   ",
+        "interval":             1,   
+        "tooltip":              false
+    },
+
+    "clock#date": {
+        "format":               "{:%A %d %B %Y}   ",
+        "tooltip-format":       "<big>{:%Y %B}</big>\n<span>{calendar}</span>",
+        "calendar": {
+            "format": {
+                "today":        "<span color='#fAfBfC'><b>{}</b></span>"
+            }
+        }
+    }
+ }

@@ -1,0 +1,122 @@
+/**
+ *
+ * Waybar config
+ *
+ */
+
+
+/*------------Import Wal Colors-----------------*/
+@import url("../../.cache/wal/colors-waybar.css");
+
+/*------------Global Properties-----------------*/
+* {
+  border:           none;
+  border-radius:    0px;
+  font-family:      Hasklig Nerd Font;
+  font-size:        12px;
+  min-height:       0;
+}
+
+/*------------Waybar Window--------------------*/
+window#waybar {
+  background:       transparent;
+}
+
+/*------------Module Groups--------------------*/
+.modules-right,
+.modules-center,
+.modules-left {
+  margin-top: 4px;
+}
+
+/*------------Tooltip--------------------------*/
+tooltip {
+  background:       @background;
+  border:           2px solid @color3;
+  border-radius:    12px;
+}
+
+tooltip label {
+  color:            @cursor;
+  padding:          6px;
+}
+
+/*------------Workspaces-----------------------*/
+#workspaces button {
+  border-radius:    8px;
+  color:            transparent;
+  background:       @color5;
+  transition:       all 0.3s ease-in-out;
+  margin:           7px 4px;
+  padding:          0;
+}
+
+#workspaces button.active {
+  min-width:        40px;
+}
+
+#workspaces button:hover {
+  background-color: @color6;
+  min-width:        50px;
+}
+
+#workspaces button.urgent {
+  background-color: @color9;
+}
+
+/*------------Weather---------------------------*/
+#custom-weather {
+  font-weight:      bold;
+  background:       @background;
+  margin:           5px;
+  color:            @cursor;
+}
+
+#custom-weather {
+  border-radius:    24px 10px 24px 10px;
+}
+
+/*------------Other widgets-----------------*/
+#clock,
+#custom-launcher,
+#custom-power,
+#hardware,
+#settings,
+#workspaces {
+  color:            @cursor;
+  background:       @background;
+  padding:          0px 10px;
+  margin:           0px 6px;
+  border-radius:    6px;
+}
+
+#hardware #cpu,
+#hardware #memory,
+#hardware #temperature {
+  margin:           0px 4px;
+}
+
+#hardware #temperature.critical {
+  background:       #aa4040;
+}
+
+#settings #tray,
+#settings #idle_inhibitor,
+#settings #wireplumber,
+#settings #network {
+  margin:           0px 4px;
+}
+
+/*------------Launcher-------------------------*/
+#custom-power,
+#custom-launcher {
+  color:            @color5;
+  font-size:        24px;
+  padding-right:    16px;
+}
+
+#custom-power:hover,
+#custom-launcher:hover {
+  color:            @color6;
+}
+

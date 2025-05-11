@@ -1,0 +1,38 @@
+/*------------Import Wal Colors-----------------*/
+@import url("/home/fonta/.cache/wal/colors-waybar.css");
+
+
+/*------------Main Window-----------------------*/
+#window {
+  padding:                        0px;
+  border:                         2px;
+  border-radius:                  15px;
+  background-color:               @background;
+  color:                          @color5;
+}
+
+#input {
+  margin-right:                   -100px;
+}
+
+#scroll {
+  margin-right:                   60px;
+}
+
+
+#entry {
+  padding:                        0px;
+  font-size:			                68px;
+  margin:			                    10px;
+  border:                         2px;
+  border-radius:                  15px;
+  border:                         2px @color5 solid;
+}
+
+#text:selected {
+  color:                          @foreground;
+}
+
+#entry:selected {
+  background-color:               @background;
+}

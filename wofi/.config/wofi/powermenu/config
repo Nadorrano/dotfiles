@@ -1,0 +1,7 @@
+style=.config/wofi/powermenu/powermenu.css
+show=dmenu
+orientation=horizontal
+hide_search=true
+width=600
+height=200
+content_halign=center
